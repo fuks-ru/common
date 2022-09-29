@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PERSONAL_NPM_TOKEN: ${{ secrets.PERSONAL_NPM_TOKEN }}
+      PERSONAL_NPM_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
 
     steps:
       - name: Checkout
