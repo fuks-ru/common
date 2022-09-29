@@ -1,0 +1,23 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/fuks-ru/common",
+  "author": "Dmitry Fuks",
+  "license": "MIT",
+  "packageManager": "yarn@3.2.3",
+  "scripts": {
+    "build:lib": "yarn workspaces foreach --interlaced --verbose --topological-dev --parallel run build:lib",
+    "lint": "eslint \"{**/*,*}.{ts,tsx,js,jsx,json}\"",
+    "lint:fix": "yarn run lint --fix"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.2.0",
+    "eslint": "^8.24.0",
+    "eslint-config-fuks": "^1.8.2",
+    "typescript": "4.8.3"
+  }
+}

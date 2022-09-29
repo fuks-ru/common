@@ -1,0 +1,59 @@
+name: Build
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      PERSONAL_NPM_TOKEN: ${{ secrets.PERSONAL_NPM_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install modules
+        run: yarn install
+
+      - name: Build libs
+        run: yarn build:lib
+
+      - name: Eslint
+        run: yarn lint
+
+      - name: Build entries
+        run: yarn build
+
+      - name: Check packages versions
+        run: yarn version check
+
+  notification:
+    name: Notification
+
+    needs: [ build ]
+
+    runs-on: ubuntu-latest
+
+    if: always()
+
+    steps:
+      - name: Pull Request URL
+        uses: 8BitJonny/gh-get-current-pr@2.1.0
+        id: PR
+
+      - name: Send telegram message
+        uses: appleboy/telegram-action@master
+        env:
+          COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{github.sha}}
+          ACTION_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            [Build](${{ env.ACTION_URL }}) *${{ needs.build.result == 'success' && '✅' || '⛔️' }}*
+
+            *${{ github.actor }}* created [PR](${{ steps.PR.outputs.pr_url }})
