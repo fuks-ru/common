@@ -1,7 +1,7 @@
 {
   "name": "@fuks-ru/common-frontend",
-  "packageManager": "yarn@3.2.0",
   "description": "Frontend helpers",
+  "packageManager": "yarn@3.2.0",
   "version": "0.0.3",
   "repository": "https://github.com/fuks-ru/common",
   "main": "./dist/index.js",
