@@ -67,7 +67,7 @@ jobs:
             message: |
               *common*
   
-              [check build](${{ env.ACTION_URL }}) by *${{ github.actor }}*
+              [build and deploy](${{ env.ACTION_URL }}) by *${{ github.actor }}*
               
               steps: build *${{ needs.build.result == 'success' && '✅' || '⛔️' }}*
   
