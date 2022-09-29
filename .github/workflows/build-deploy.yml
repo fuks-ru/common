@@ -28,9 +28,6 @@ jobs:
       - name: Eslint
         run: yarn lint
 
-      - name: Build entries
-        run: yarn build
-
       - name: Check packages versions
         run: yarn version check
 
