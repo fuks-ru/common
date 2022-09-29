@@ -64,6 +64,10 @@ jobs:
             token: ${{ secrets.TELEGRAM_TOKEN }}
             format: markdown
             message: |
-              *common* [Build](${{ env.ACTION_URL }}) *${{ needs.build.result == 'success' && '✅' || '⛔️' }}*
-
-              *${{ github.actor }}* merge to master: [commit](${{ env.COMMIT_URL }})
+              *common*
+  
+              [check build](${{ env.ACTION_URL }}) by *${{ github.actor }}*
+              
+              steps: build *${{ needs.build.result == 'success' && '✅' || '⛔️' }}*
+  
+              [commit](${{ env.COMMIT_URL }})
