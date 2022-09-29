@@ -2,7 +2,7 @@
   "name": "@fuks-ru/common-backend",
   "description": "Backend helpers",
   "packageManager": "yarn@3.2.0",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "repository": "https://github.com/fuks-ru/common",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -34,7 +34,7 @@
     "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
-    "@fuks-ru/common": "workspace:0.0.3",
+    "@fuks-ru/common": "workspace:0.0.4",
     "@nestjs/common": "^9.1.2",
     "@nestjs/core": "^9.1.2",
     "@nestjs/platform-express": "^9.1.2",
