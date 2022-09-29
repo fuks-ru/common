@@ -51,6 +51,6 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
           message: |
-            [Build](${{ env.ACTION_URL }}) *${{ needs.build.result == 'success' && '✅' || '⛔️' }}*
+            *common* [Build](${{ env.ACTION_URL }}) *${{ needs.build.result == 'success' && '✅' || '⛔️' }}*
 
             *${{ github.actor }}* created [PR](${{ steps.PR.outputs.pr_url }})
