@@ -1,6 +1,5 @@
 {
   "name": "common",
-  "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/fuks-ru/common",
   "author": "Dmitry Fuks",
