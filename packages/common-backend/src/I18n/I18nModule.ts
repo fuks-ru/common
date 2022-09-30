@@ -31,12 +31,12 @@ export class I18nModule {
             new HeaderResolver(['i18next']),
           ],
           loader: I18nLoader,
-          fallbackLanguage: 'en',
+          fallbackLanguage: 'en-US',
           loaderOptions: {
-            languages: ['en', 'ru'],
+            languages: ['en-US', 'ru-RU'],
             translations: {
-              en: { ...enUS, ...options.translations?.en },
-              ru: { ...ruRU, ...options.translations?.ru },
+              'en-US': { ...enUS, ...options.translations?.['en-US'] },
+              'ru-RU': { ...ruRU, ...options.translations?.['ru-RU'] },
             },
           },
         }),
@@ -70,12 +70,12 @@ export class I18nModule {
             const result = await options.useFactory(...args);
 
             return {
-              fallbackLanguage: 'en',
+              fallbackLanguage: 'en-US',
               loaderOptions: {
-                languages: ['en', 'ru'],
+                languages: ['en-US', 'ru-RU'],
                 translations: {
-                  en: { ...enUS, ...result.translations?.en },
-                  ru: { ...ruRU, ...result.translations?.ru },
+                  'en-US': { ...enUS, ...result.translations?.['en-US'] },
+                  'ru-RU': { ...ruRU, ...result.translations?.['ru-RU'] },
                 },
               },
             };
