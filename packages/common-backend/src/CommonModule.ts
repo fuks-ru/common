@@ -6,7 +6,6 @@ import {
   ModuleMetadata,
   OptionalFactoryDependency,
 } from '@nestjs/common';
-import { I18nTranslation } from 'nestjs-i18n';
 
 import { CookieSetterModule } from 'common-backend/CookieSetter/CookieSetterModule';
 import { ErrorFilterModule } from 'common-backend/ErrorFilter/ErrorFilterModule';
@@ -19,6 +18,7 @@ import { SystemErrorModule } from 'common-backend/SystemError/SystemErrorModule'
 import { ValidationModule } from 'common-backend/Validation/ValidationModule';
 import { ILoggerModuleOptions } from 'common-backend/Logger/types/ILoggerModuleOptions';
 import { EnvModule } from 'common-backend/Env/EnvModule';
+import { II18nModuleOptions } from 'common-backend/I18n/types/II18nModuleOptions';
 
 /**
  * Настройки основного модуля.
@@ -31,10 +31,7 @@ export interface ICommonModuleOptions {
   /**
    * Переводы.
    */
-  translations?: {
-    en?: I18nTranslation;
-    ru?: I18nTranslation;
-  };
+  translations?: II18nModuleOptions['translations'];
   /**
    * Страница, отображаемая в случае ошибки.
    */
