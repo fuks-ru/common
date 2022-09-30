@@ -8,8 +8,8 @@ import {
 import { I18nValidationTranslator } from 'common-backend/I18n/services/I18nValidationTranslator';
 import { I18nResolver } from 'common-backend/I18n/services/I18nResolver';
 import { I18nLoader } from 'common-backend/I18n/services/I18nLoader';
-import enUS from 'common-backend/__i18n__/enUS.json';
-import ruRU from 'common-backend/__i18n__/ruRU.json';
+import enUS from 'common-backend/__i18n__/en.json';
+import ruRU from 'common-backend/__i18n__/ru.json';
 import {
   II18nModuleAsyncOptions,
   II18nModuleOptions,
@@ -31,12 +31,12 @@ export class I18nModule {
             new HeaderResolver(['i18next']),
           ],
           loader: I18nLoader,
-          fallbackLanguage: 'en-US',
+          fallbackLanguage: 'en',
           loaderOptions: {
-            languages: ['en-US', 'ru-RU'],
+            languages: ['en', 'ru'],
             translations: {
-              'en-US': { ...enUS, ...options.translations?.['en-US'] },
-              'ru-RU': { ...ruRU, ...options.translations?.['ru-RU'] },
+              en: { ...enUS, ...options.translations?.en },
+              ru: { ...ruRU, ...options.translations?.ru },
             },
           },
         }),
@@ -70,12 +70,12 @@ export class I18nModule {
             const result = await options.useFactory(...args);
 
             return {
-              fallbackLanguage: 'en-US',
+              fallbackLanguage: 'en',
               loaderOptions: {
-                languages: ['en-US', 'ru-RU'],
+                languages: ['en', 'ru'],
                 translations: {
-                  'en-US': { ...enUS, ...result.translations?.['en-US'] },
-                  'ru-RU': { ...ruRU, ...result.translations?.['ru-RU'] },
+                  en: { ...enUS, ...result.translations?.en },
+                  ru: { ...ruRU, ...result.translations?.ru },
                 },
               },
             };

@@ -32,8 +32,8 @@ export interface ICommonModuleOptions {
    * Переводы.
    */
   translations?: {
-    'en-US'?: I18nTranslation;
-    'ru-RU'?: I18nTranslation;
+    en?: I18nTranslation;
+    ru?: I18nTranslation;
   };
   /**
    * Страница, отображаемая в случае ошибки.

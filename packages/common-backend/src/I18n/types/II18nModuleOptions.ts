@@ -13,8 +13,8 @@ export interface II18nModuleOptions {
    * Переводы.
    */
   translations?: {
-    'en-US'?: I18nTranslation;
-    'ru-RU'?: I18nTranslation;
+    en?: I18nTranslation;
+    ru?: I18nTranslation;
   };
 }
 
