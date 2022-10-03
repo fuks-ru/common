@@ -235,7 +235,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/common-frontend/",\
           "packageDependencies": [\
             ["@fuks-ru/common-frontend", "workspace:packages/common-frontend"],\
-            ["@fuks-ru/common", "workspace:packages/common"],\
             ["@types/axios", "npm:0.14.0"],\
             ["@types/react", "npm:18.0.21"],\
             ["axios", "npm:0.27.2"],\
