@@ -113,7 +113,7 @@ export class ContractGenerator {
         }),
         json(),
       ],
-      external: ['openapi-client-axios'],
+      external: ['openapi-client-axios', '@fuks-ru/common'],
     });
 
     await build.write({
