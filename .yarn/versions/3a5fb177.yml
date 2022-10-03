@@ -1,0 +1,3 @@
+releases:
+  "@fuks-ru/common": patch
+  "@fuks-ru/common-backend": patch
