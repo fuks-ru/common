@@ -2,7 +2,7 @@
   "name": "@fuks-ru/common",
   "description": "Common helpers",
   "packageManager": "yarn@3.2.0",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "repository": "https://github.com/fuks-ru/common",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
