@@ -5,6 +5,18 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@apidevtools/json-schema-ref-parser@npm:^9.0.7":
+  version: 9.0.9
+  resolution: "@apidevtools/json-schema-ref-parser@npm:9.0.9"
+  dependencies:
+    "@jsdevtools/ono": ^7.1.3
+    "@types/json-schema": ^7.0.6
+    call-me-maybe: ^1.0.1
+    js-yaml: ^4.1.0
+  checksum: b21f6bdd37d2942c3967ee77569bc74fadd1b922f688daf5ef85057789a2c3a7f4afc473aa2f3a93ec950dabb6ef365f8bd9cf51e4e062a1ee1e59b989f8f9b4
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:^7.0.0":
   version: 7.18.6
   resolution: "@babel/code-frame@npm:7.18.6"
@@ -121,6 +133,7 @@ __metadata:
     geoip-lite: ^1.4.6
     nest-winston: ^1.7.0
     nestjs-i18n: ^9.1.10
+    openapi-client-axios: ^5.3.0
     reflect-metadata: ^0.1.13
     request-context: ^2.0.0
     rollup: ^2.79.1
@@ -174,6 +187,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@fuks-ru/common@workspace:packages/common"
   dependencies:
+    "@types/axios": ^0.14.0
+    axios: ^0.27.2
     tslib: ^2.4.0
     ttypescript: ^1.5.13
     typescript: 4.8.3
@@ -217,6 +232,13 @@ __metadata:
   version: 1.2.1
   resolution: "@humanwhocodes/object-schema@npm:1.2.1"
   checksum: a824a1ec31591231e4bad5787641f59e9633827d0a2eaae131a288d33c9ef0290bd16fda8da6f7c0fcb014147865d12118df10db57f27f41e20da92369fcb3f1
+  languageName: node
+  linkType: hard
+
+"@jsdevtools/ono@npm:^7.1.3":
+  version: 7.1.3
+  resolution: "@jsdevtools/ono@npm:7.1.3"
+  checksum: 2297fcd472ba810bffe8519d2249171132844c7174f3a16634f9260761c8c78bc0428a4190b5b6d72d45673c13918ab9844d706c3ed4ef8f62ab11a2627a08ad
   languageName: node
   linkType: hard
 
@@ -592,7 +614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:^7.0.9":
+"@types/json-schema@npm:^7.0.6, @types/json-schema@npm:^7.0.9":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
   checksum: 527bddfe62db9012fccd7627794bd4c71beb77601861055d87e3ee464f2217c85fca7a4b56ae677478367bbd248dbde13553312b7d4dbc702a2f2bbf60c4018d
@@ -1130,6 +1152,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bath-es5@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "bath-es5@npm:3.0.3"
+  checksum: 094e917ac086b13307fd290ee53c3b2c87cc55a73fd086b6a364488bb63e704e182a82b6f08280feedb1b196f7fe505fb86367a9bc5110c910096e0591490ca3
+  languageName: node
+  linkType: hard
+
 "binary-extensions@npm:^2.0.0":
   version: 2.2.0
   resolution: "binary-extensions@npm:2.2.0"
@@ -1262,6 +1291,13 @@ __metadata:
     function-bind: ^1.1.1
     get-intrinsic: ^1.0.2
   checksum: f8e31de9d19988a4b80f3e704788c4a2d6b6f3d17cfec4f57dc29ced450c53a49270dc66bf0fbd693329ee948dd33e6c90a329519aef17474a4d961e8d6426b0
+  languageName: node
+  linkType: hard
+
+"call-me-maybe@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "call-me-maybe@npm:1.0.1"
+  checksum: d19e9d6ac2c6a83fb1215718b64c5e233f688ebebb603bdfe4af59cde952df1f2b648530fab555bf290ea910d69d7d9665ebc916e871e0e194f47c2e48e4886b
   languageName: node
   linkType: hard
 
@@ -1587,6 +1623,15 @@ __metadata:
   version: 0.5.0
   resolution: "cookie@npm:0.5.0"
   checksum: 1f4bd2ca5765f8c9689a7e8954183f5332139eb72b6ff783d8947032ec1fdf43109852c178e21a953a30c0dd42257828185be01b49d1eb1a67fd054ca588a180
+  languageName: node
+  linkType: hard
+
+"copy-anything@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "copy-anything@npm:3.0.2"
+  dependencies:
+    is-what: ^4.1.6
+  checksum: 394491d62ab0c77c81616668bce51b91cf4e7b539bd530bb5b22c226151b0bc6122c01de21ffe46d5ec273f504fb34f6569f349ffb823fa814dddb8b27a4750c
   languageName: node
   linkType: hard
 
@@ -3527,6 +3572,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-what@npm:^4.1.6":
+  version: 4.1.7
+  resolution: "is-what@npm:4.1.7"
+  checksum: aade39dcc45a209d6cb2f2d5dbcf0e63ed894aadbae37bd5693c64e9876a27632431b43fc9d9332ebf0795eddd2abc11a2d0f3c6fa41c36330616a645660530e
+  languageName: node
+  linkType: hard
+
 "is-wsl@npm:^2.2.0":
   version: 2.2.0
   resolution: "is-wsl@npm:2.2.0"
@@ -4794,6 +4846,28 @@ __metadata:
     is-docker: ^2.1.1
     is-wsl: ^2.2.0
   checksum: e9545bec64cdbf30a0c35c1bdc310344adf8428a117f7d8df3c0af0a0a24c513b304916a6d9b11db0190ff7225c2d578885080b761ed46a3d5f6f1eebb98b63c
+  languageName: node
+  linkType: hard
+
+"openapi-client-axios@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "openapi-client-axios@npm:5.3.0"
+  dependencies:
+    "@apidevtools/json-schema-ref-parser": ^9.0.7
+    bath-es5: ^3.0.3
+    copy-anything: ^3.0.2
+    openapi-types: ^12.0.2
+  peerDependencies:
+    axios: ^0.25.0
+    js-yaml: ^4.1.0
+  checksum: decf322b3f8eb12c54573ae4f2b1edd4afaddc47be28a40a843e4a866fe2210bfc81beb627bc489f96869bb53dd1c9f6a445069abe5c2b74046050494e4c4bdd
+  languageName: node
+  linkType: hard
+
+"openapi-types@npm:^12.0.2":
+  version: 12.0.2
+  resolution: "openapi-types@npm:12.0.2"
+  checksum: 097edc46adb5a8fc2a3419e2e0adbb5516737fd83b4041ec62ee28427e85d9f18c6ead9231b9d1c8f718d86eeccf3c0997437414011d8bb1597387a047493fea
   languageName: node
   linkType: hard
 

@@ -9,5 +9,5 @@ export enum CommonErrorCode {
   UNAUTHORIZED = 'unauthorized',
   FORBIDDEN = 'forbidden',
   REDIRECT = 'redirect',
-  REMOTE_HOST_ERROR = 'remote_cost_error',
+  REMOTE_HOST_ERROR = 'remote_host_error',
 }

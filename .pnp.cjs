@@ -56,6 +56,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT"\
         }]\
       ]],\
+      ["@apidevtools/json-schema-ref-parser", [\
+        ["npm:9.0.9", {\
+          "packageLocation": "./.yarn/cache/@apidevtools-json-schema-ref-parser-npm-9.0.9-cda77aa4ae-b21f6bdd37.zip/node_modules/@apidevtools/json-schema-ref-parser/",\
+          "packageDependencies": [\
+            ["@apidevtools/json-schema-ref-parser", "npm:9.0.9"],\
+            ["@jsdevtools/ono", "npm:7.1.3"],\
+            ["@types/json-schema", "npm:7.0.11"],\
+            ["call-me-maybe", "npm:1.0.1"],\
+            ["js-yaml", "npm:4.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@babel/code-frame", [\
         ["npm:7.18.6", {\
           "packageLocation": "./.yarn/cache/@babel-code-frame-npm-7.18.6-25229a7e34-195e2be317.zip/node_modules/@babel/code-frame/",\
@@ -164,6 +177,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/common/",\
           "packageDependencies": [\
             ["@fuks-ru/common", "workspace:packages/common"],\
+            ["@types/axios", "npm:0.14.0"],\
+            ["axios", "npm:0.27.2"],\
             ["tslib", "npm:2.4.0"],\
             ["ttypescript", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:1.5.13"],\
             ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"],\
@@ -197,6 +212,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["geoip-lite", "npm:1.4.6"],\
             ["nest-winston", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:1.7.0"],\
             ["nestjs-i18n", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:9.2.0"],\
+            ["openapi-client-axios", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:5.3.0"],\
             ["reflect-metadata", "npm:0.1.13"],\
             ["request-context", "npm:2.0.0"],\
             ["rollup", "npm:2.79.1"],\
@@ -276,6 +292,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@humanwhocodes-object-schema-npm-1.2.1-eb622b5d0e-a824a1ec31.zip/node_modules/@humanwhocodes/object-schema/",\
           "packageDependencies": [\
             ["@humanwhocodes/object-schema", "npm:1.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@jsdevtools/ono", [\
+        ["npm:7.1.3", {\
+          "packageLocation": "./.yarn/cache/@jsdevtools-ono-npm-7.1.3-cb2313543b-2297fcd472.zip/node_modules/@jsdevtools/ono/",\
+          "packageDependencies": [\
+            ["@jsdevtools/ono", "npm:7.1.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1497,6 +1522,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["bath-es5", [\
+        ["npm:3.0.3", {\
+          "packageLocation": "./.yarn/cache/bath-es5-npm-3.0.3-8e3904296c-094e917ac0.zip/node_modules/bath-es5/",\
+          "packageDependencies": [\
+            ["bath-es5", "npm:3.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["binary-extensions", [\
         ["npm:2.2.0", {\
           "packageLocation": "./.yarn/cache/binary-extensions-npm-2.2.0-180c33fec7-ccd267956c.zip/node_modules/binary-extensions/",\
@@ -1645,6 +1679,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["call-bind", "npm:1.0.2"],\
             ["function-bind", "npm:1.1.1"],\
             ["get-intrinsic", "npm:1.1.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["call-me-maybe", [\
+        ["npm:1.0.1", {\
+          "packageLocation": "./.yarn/cache/call-me-maybe-npm-1.0.1-d07e74bc9c-d19e9d6ac2.zip/node_modules/call-me-maybe/",\
+          "packageDependencies": [\
+            ["call-me-maybe", "npm:1.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2018,6 +2061,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/cookie-signature-npm-1.0.6-93f325f7f0-f4e1b0a98a.zip/node_modules/cookie-signature/",\
           "packageDependencies": [\
             ["cookie-signature", "npm:1.0.6"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["copy-anything", [\
+        ["npm:3.0.2", {\
+          "packageLocation": "./.yarn/cache/copy-anything-npm-3.0.2-1f5980937c-394491d62a.zip/node_modules/copy-anything/",\
+          "packageDependencies": [\
+            ["copy-anything", "npm:3.0.2"],\
+            ["is-what", "npm:4.1.7"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4525,6 +4578,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["is-what", [\
+        ["npm:4.1.7", {\
+          "packageLocation": "./.yarn/cache/is-what-npm-4.1.7-de51939f72-aade39dcc4.zip/node_modules/is-what/",\
+          "packageDependencies": [\
+            ["is-what", "npm:4.1.7"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["is-wsl", [\
         ["npm:2.2.0", {\
           "packageLocation": "./.yarn/cache/is-wsl-npm-2.2.0-2ba10d6393-20849846ae.zip/node_modules/is-wsl/",\
@@ -5962,6 +6024,45 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["define-lazy-prop", "npm:2.0.0"],\
             ["is-docker", "npm:2.2.1"],\
             ["is-wsl", "npm:2.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["openapi-client-axios", [\
+        ["npm:5.3.0", {\
+          "packageLocation": "./.yarn/cache/openapi-client-axios-npm-5.3.0-c69ce8681f-decf322b3f.zip/node_modules/openapi-client-axios/",\
+          "packageDependencies": [\
+            ["openapi-client-axios", "npm:5.3.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:5.3.0", {\
+          "packageLocation": "./.yarn/__virtual__/openapi-client-axios-virtual-1234141d0f/0/cache/openapi-client-axios-npm-5.3.0-c69ce8681f-decf322b3f.zip/node_modules/openapi-client-axios/",\
+          "packageDependencies": [\
+            ["openapi-client-axios", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:5.3.0"],\
+            ["@apidevtools/json-schema-ref-parser", "npm:9.0.9"],\
+            ["@types/axios", "npm:0.14.0"],\
+            ["@types/js-yaml", null],\
+            ["axios", "npm:0.27.2"],\
+            ["bath-es5", "npm:3.0.3"],\
+            ["copy-anything", "npm:3.0.2"],\
+            ["js-yaml", null],\
+            ["openapi-types", "npm:12.0.2"]\
+          ],\
+          "packagePeers": [\
+            "@types/axios",\
+            "@types/js-yaml",\
+            "axios",\
+            "js-yaml"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["openapi-types", [\
+        ["npm:12.0.2", {\
+          "packageLocation": "./.yarn/cache/openapi-types-npm-12.0.2-23aa4904c8-097edc46ad.zip/node_modules/openapi-types/",\
+          "packageDependencies": [\
+            ["openapi-types", "npm:12.0.2"]\
           ],\
           "linkType": "HARD"\
         }]\

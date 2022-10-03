@@ -3,6 +3,7 @@ import OpenAPIClientAxios, {
   OperationResponse,
   Parameters,
 } from 'openapi-client-axios';
+import { errorInterceptor } from '@fuks-ru/common';
 
 import { Client, defaultBaseUrl, OperationMethods, Components } from './client';
 import schema from './swagger-schema.json';
@@ -27,6 +28,7 @@ export const getApi = async (baseURL = defaultBaseUrl): Promise<Client> => {
   apiInstance.defaults.headers.post['Content-Type'] = 'application/json';
   apiInstance.defaults.headers.put['Content-Type'] = 'application/json';
   apiInstance.defaults.headers.delete['Content-Type'] = 'application/json';
+  apiInstance.interceptors.response.use(undefined, errorInterceptor);
 
   return apiInstance;
 };
