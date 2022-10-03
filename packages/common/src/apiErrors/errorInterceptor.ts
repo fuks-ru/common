@@ -27,13 +27,11 @@ export const errorInterceptor = (error: AxiosError<IErrorResponse>): void => {
   if (response.data.code === CommonErrorCode.REDIRECT) {
     const data = response.data.redirect as IRedirectData;
 
-    window.location.assign(data.location);
-
-    throw new RedirectError();
+    throw new RedirectError(data);
   }
 
   if (response.data.code === CommonErrorCode.UNAUTHORIZED) {
-    throw new UnauthorizedError();
+    throw new UnauthorizedError(response.data.message);
   }
 
   throw new SystemError(response.data.message);
