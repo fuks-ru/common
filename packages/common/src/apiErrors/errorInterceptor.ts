@@ -2,7 +2,7 @@ import type { AxiosError } from 'axios';
 
 import { ValidationError } from 'common/apiErrors/ValidationError';
 import { SystemError } from 'common/apiErrors/SystemError';
-import { UnauthorizedError } from 'common/apiErrors/UnauthorizedError';
+import { ForbiddenError } from 'common/apiErrors/ForbiddenError';
 import { RedirectError } from 'common/apiErrors/RedirectError';
 import { IErrorResponse } from 'common/errorResponse/IErrorResponse';
 import { CommonErrorCode } from 'common/errorResponse/CommonErrorCode';
@@ -30,8 +30,8 @@ export const errorInterceptor = (error: AxiosError<IErrorResponse>): void => {
     throw new RedirectError(data);
   }
 
-  if (response.data.code === CommonErrorCode.UNAUTHORIZED) {
-    throw new UnauthorizedError(response.data.message);
+  if (response.data.code === CommonErrorCode.FORBIDDEN) {
+    throw new ForbiddenError(response.data.message);
   }
 
   throw new SystemError(response.data.message);
