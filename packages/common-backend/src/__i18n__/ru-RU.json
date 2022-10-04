@@ -1,0 +1,7 @@
+{
+  "validationError": "Ошибка валидации",
+  "unknownError": "Неизвестная ошибка",
+  "remoteHostError": "Произошла ошибка на удаленном хосте",
+  "forbidden": "Нет доступа",
+  "unauthorized": "Не авторизован"
+}

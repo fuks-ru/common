@@ -8,8 +8,8 @@ import {
 import { I18nValidationTranslator } from 'common-backend/I18n/services/I18nValidationTranslator';
 import { I18nResolver } from 'common-backend/I18n/services/I18nResolver';
 import { I18nLoader } from 'common-backend/I18n/services/I18nLoader';
-import enUS from 'common-backend/__i18n__/en.json';
-import ruRU from 'common-backend/__i18n__/ru.json';
+import enUS from 'common-backend/__i18n__/en-US.json';
+import ruRU from 'common-backend/__i18n__/ru-RU.json';
 import {
   II18nModuleAsyncOptions,
   II18nModuleOptions,
