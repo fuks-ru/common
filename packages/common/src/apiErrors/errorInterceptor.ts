@@ -7,6 +7,8 @@ import { RedirectError } from 'common/apiErrors/RedirectError';
 import { IErrorResponse } from 'common/errorResponse/IErrorResponse';
 import { CommonErrorCode } from 'common/errorResponse/CommonErrorCode';
 import { IRedirectData } from 'common/errorResponse/IRedirectData';
+import { UnauthorizedError } from 'common/apiErrors/UnauthorizedError';
+import { AlreadyAuthError } from 'common/apiErrors/AlreadyAuthError';
 
 /**
  * Добавляет интерцептор для работы с api.
@@ -32,6 +34,14 @@ export const errorInterceptor = (error: AxiosError<IErrorResponse>): void => {
 
   if (response.data.code === CommonErrorCode.FORBIDDEN) {
     throw new ForbiddenError(response.data.message);
+  }
+
+  if (response.data.code === CommonErrorCode.UNAUTHORIZED) {
+    throw new UnauthorizedError(response.data.message);
+  }
+
+  if (response.data.code === CommonErrorCode.ALREADY_AUTH) {
+    throw new AlreadyAuthError(response.data.message);
   }
 
   throw new SystemError(response.data.message);

@@ -13,4 +13,11 @@ export class CookieSetterService {
   public setCookie(name: string, value: string, options?: CookieOptions): void {
     this.cookieSetterRef.setCookie(name, value, options);
   }
+
+  /**
+   * Очистить куку.
+   */
+  public clearCookie(name: string): void {
+    this.cookieSetterRef.clearCookie(name);
+  }
 }

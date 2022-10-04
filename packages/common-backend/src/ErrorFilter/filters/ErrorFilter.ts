@@ -21,11 +21,16 @@ import { IErrorFilterModuleOptions } from 'common-backend/ErrorFilter/types/IErr
 
 @Injectable()
 export class ErrorFilter implements ExceptionFilter<Error> {
-  private readonly statusResolver: Record<string | number, HttpStatus> = {
+  private readonly statusResolver: Record<CommonErrorCode, HttpStatus> = {
+    [CommonErrorCode.ALREADY_AUTH]: HttpStatus.BAD_REQUEST,
+    [CommonErrorCode.CONFIG_NOT_FOUND]: HttpStatus.INTERNAL_SERVER_ERROR,
+    [CommonErrorCode.REDIRECT]: HttpStatus.INTERNAL_SERVER_ERROR,
+    [CommonErrorCode.REMOTE_HOST_ERROR]: HttpStatus.INTERNAL_SERVER_ERROR,
     [CommonErrorCode.NOT_FOUND_ROUTE]: HttpStatus.NOT_FOUND,
     [CommonErrorCode.UNAUTHORIZED]: HttpStatus.UNAUTHORIZED,
     [CommonErrorCode.VALIDATION]: HttpStatus.UNPROCESSABLE_ENTITY,
     [CommonErrorCode.FORBIDDEN]: HttpStatus.FORBIDDEN,
+    [CommonErrorCode.UNKNOWN]: HttpStatus.INTERNAL_SERVER_ERROR,
   };
 
   public constructor(
@@ -128,7 +133,7 @@ export class ErrorFilter implements ExceptionFilter<Error> {
   }
 
   private resolveStatus(code: number | string): HttpStatus {
-    const mergedResolver = {
+    const mergedResolver: { [key: string]: HttpStatus } = {
       ...this.statusResolver,
       ...this.options.statusResolver,
     };

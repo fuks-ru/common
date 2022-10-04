@@ -10,4 +10,5 @@ export enum CommonErrorCode {
   FORBIDDEN = 'forbidden',
   REDIRECT = 'redirect',
   REMOTE_HOST_ERROR = 'remote_host_error',
+  ALREADY_AUTH = 'already-auth',
 }

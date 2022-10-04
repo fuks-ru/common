@@ -4,6 +4,7 @@ import requestContext from 'request-context';
 
 import {
   COOKIE,
+  COOKIE_CLEAR,
   REQUEST_CONTEXT_ID,
 } from 'common-backend/CookieSetter/utils/constants';
 
@@ -26,9 +27,13 @@ type ICookie = Record<
  */
 interface IRequestContext {
   /**
-   * Id сессии.
+   * Объект с куками для ответа.
    */
   [COOKIE]?: ICookie;
+  /**
+   * Объект с куками для очистки.
+   */
+  [COOKIE_CLEAR]?: string[];
 }
 
 @Injectable()
@@ -39,10 +44,45 @@ export class CookieSetterRef {
   public setCookie(name: string, value: string, options?: CookieOptions): void {
     const context = requestContext.get<IRequestContext>(REQUEST_CONTEXT_ID);
 
-    requestContext.set(`${REQUEST_CONTEXT_ID}:${COOKIE}`, {
-      ...context,
+    const prevCookiesClear = context[COOKIE_CLEAR] || [];
+    const prevCookiesAdd = context[COOKIE] || {};
+
+    const newCookiesAdd = {
+      ...prevCookiesAdd,
       [name]: { value, options },
-    });
+    };
+    const newCookiesClear = prevCookiesClear.filter(
+      (clearCookieName) => clearCookieName !== name,
+    );
+
+    requestContext.set(
+      `${REQUEST_CONTEXT_ID}:${COOKIE_CLEAR}`,
+      newCookiesClear,
+    );
+    requestContext.set(`${REQUEST_CONTEXT_ID}:${COOKIE}`, newCookiesAdd);
+  }
+
+  /**
+   * Добавляет куку в список для удаления.
+   */
+  public clearCookie(name: string): void {
+    const context = requestContext.get<IRequestContext>(REQUEST_CONTEXT_ID);
+
+    const prevCookiesClear = context[COOKIE_CLEAR] || [];
+    const prevCookiesAdd = context[COOKIE] || {};
+
+    const newCookiesClear = [...prevCookiesClear, name];
+    const newCookiesAdd = Object.fromEntries(
+      Object.entries(prevCookiesAdd).filter(
+        ([addCookieName]) => addCookieName !== name,
+      ),
+    );
+
+    requestContext.set(
+      `${REQUEST_CONTEXT_ID}:${COOKIE_CLEAR}`,
+      newCookiesClear,
+    );
+    requestContext.set(`${REQUEST_CONTEXT_ID}:${COOKIE}`, newCookiesAdd);
   }
 
   /**
@@ -52,5 +92,14 @@ export class CookieSetterRef {
     const context = requestContext.get<IRequestContext>(REQUEST_CONTEXT_ID);
 
     return context[COOKIE] || {};
+  }
+
+  /**
+   * Получить куки для удаления.
+   */
+  public getClearCookies(): string[] {
+    const context = requestContext.get<IRequestContext>(REQUEST_CONTEXT_ID);
+
+    return context[COOKIE_CLEAR] || [];
   }
 }

@@ -24,5 +24,9 @@ export class CookieResponseSetter {
         ...options,
       });
     }
+
+    for (const name of this.cookieSetterRef.getClearCookies()) {
+      response.clearCookie(name);
+    }
   }
 }
