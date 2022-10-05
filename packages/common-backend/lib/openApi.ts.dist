@@ -9,6 +9,7 @@ import { Client, defaultBaseUrl, OperationMethods, Components } from './client';
 import schema from './swagger-schema.json';
 
 export type TMethods = keyof OperationMethods;
+export { OperationResponse };
 
 /**
  * Получает api-контракт для работы с blog-backend.
