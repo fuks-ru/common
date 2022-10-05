@@ -51,20 +51,24 @@ export class LoggerMiddleware implements NestMiddleware {
 
     const geo = lookup(req.ip);
 
-    this.logger.log('New incoming request', {
-      url: req.url,
-      method: req.method,
-      query: req.query,
-      body: req.body as unknown,
-      ip: req.ip,
-      city: geo?.city,
-    });
+    this.logger.log(
+      `New incoming request: ${JSON.stringify({
+        url: req.url,
+        method: req.method,
+        query: req.query,
+        body: req.body as unknown,
+        ip: req.ip,
+        city: geo?.city,
+      })}`,
+    );
 
     res.on('finish', () => {
-      this.logger.log('Completed response from the server', {
-        url: req.url,
-        statusCode: res.statusCode,
-      });
+      this.logger.log(
+        `Completed response from the server ${{
+          url: req.url,
+          statusCode: res.statusCode,
+        }}`,
+      );
     });
 
     next();

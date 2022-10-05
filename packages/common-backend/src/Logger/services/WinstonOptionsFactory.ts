@@ -35,47 +35,59 @@ export class WinstonOptionsFactory {
   public create(
     options: ILoggerModuleOptions | undefined,
   ): WinstonModuleOptions {
-    const myFormat = format.combine(
+    const colorizer = format.colorize();
+
+    const consoleFormat = format.combine(
+      format((info) => {
+        // eslint-disable-next-line no-param-reassign
+        info.level = info.level.toUpperCase();
+
+        return info;
+      })(),
       format.timestamp({
         format: this.timestampFormat,
+      }),
+      format.colorize({
+        all: true,
       }),
       format.printf(
         ({
           level,
           message,
-          timestamp,
           context,
-          requestId,
-          sessionId,
+          timestamp,
         }: ILoggerMessage & {
           level?: string;
           timestamp?: string;
-        }) =>
-          `${timestamp as string} [${level as string}][${
-            context as string
-          }]: ${message}, ${JSON.stringify({
-            requestId,
-            sessionId,
-          })}`,
+        }) => {
+          console.log(level);
+
+          return `${colorizer.colorize(
+            LoggerLevel.INFO,
+            timestamp as string,
+          )} [${level as string}][${context as string}]: ${message}`;
+        },
       ),
+    );
+
+    const fileFormat = format.combine(
+      format.timestamp({
+        format: this.timestampFormat,
+      }),
+      format.json(),
     );
 
     const resultTransports: Transport[] = [
       new transports.Console({
         silent: options?.isToConsoleDisable,
-        format: format.combine(
-          format.colorize({
-            all: true,
-          }),
-          myFormat,
-        ),
+        format: consoleFormat,
       }),
 
       new transports.DailyRotateFile({
         silent: options?.isToFileDisable,
         level: LoggerLevel.ERROR,
         filename: this.logErrorFilename,
-        format: myFormat,
+        format: fileFormat,
         maxFiles: this.maxFiles,
         datePattern: this.logDatePattern,
       }),
@@ -84,7 +96,7 @@ export class WinstonOptionsFactory {
         silent: options?.isToFileDisable,
         level: LoggerLevel.INFO,
         filename: this.logCombineFilename,
-        format: myFormat,
+        format: fileFormat,
         maxFiles: this.maxFiles,
         datePattern: this.logDatePattern,
       }),

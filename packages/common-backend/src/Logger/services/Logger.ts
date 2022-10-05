@@ -55,14 +55,12 @@ export class Logger implements LoggerService {
    * Логи уровня error.
    */
   public error(message: unknown, ...options: unknown[]): void {
-    const { messages, context, stack } =
-      this.getContextAndStackAndMessagesToPrint([message, ...options]);
+    const { messages, context } = this.getContextAndMessagesToPrint([
+      message,
+      ...options,
+    ]);
 
     this.printMessages(messages, context, LoggerLevel.ERROR);
-
-    if (stack) {
-      this.printMessages(messages, context, LoggerLevel.ERROR);
-    }
   }
 
   /**
@@ -103,8 +101,6 @@ export class Logger implements LoggerService {
 
   private getContextAndStackAndMessagesToPrint(args: unknown[]) {
     const { messages, context } = this.getContextAndMessagesToPrint(args);
-
-    console.log(args);
 
     if (messages.length <= 1) {
       return { messages, context };
