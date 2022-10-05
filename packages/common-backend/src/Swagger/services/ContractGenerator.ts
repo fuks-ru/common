@@ -1,20 +1,20 @@
-import * as console from 'node:console';
-import * as fs from 'node:fs';
+import fs from 'node:fs';
 import childProcess from 'node:child_process';
-import * as path from 'node:path';
-import * as process from 'node:process';
+import path from 'node:path';
 import { rollup } from 'rollup';
 import typescript from 'rollup-plugin-typescript2';
 import ttypescript from 'ttypescript';
 import json from '@rollup/plugin-json';
 import util from 'node:util';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { OpenAPIObject } from '@nestjs/swagger';
 
 const exec = util.promisify(childProcess.exec);
 
 @Injectable()
 export class ContractGenerator {
+  private readonly logger = new Logger(ContractGenerator.name);
+
   private readonly targetPackageRootPath = process.cwd();
 
   private readonly contractDirCachePath = path.join(
@@ -66,7 +66,7 @@ export class ContractGenerator {
 
     await this.rollupBundle();
 
-    console.log('Contracts build completed');
+    this.logger.log('Contracts build completed');
   }
 
   private createCachePathIfNotExist(): void {
