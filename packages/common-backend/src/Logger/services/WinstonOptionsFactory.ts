@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import { WinstonModuleOptions } from 'nest-winston';
 import { format, transports } from 'winston';
 import { Injectable } from '@nestjs/common';
@@ -35,37 +34,36 @@ export class WinstonOptionsFactory {
   public create(
     options: ILoggerModuleOptions | undefined,
   ): WinstonModuleOptions {
-    const colorizer = format.colorize();
+    const { colorize } = format.colorize();
 
     const consoleFormat = format.combine(
-      format((info) => {
-        // eslint-disable-next-line no-param-reassign
-        info.level = info.level.toUpperCase();
-
-        return info;
-      })(),
       format.timestamp({
         format: this.timestampFormat,
       }),
-      format.colorize({
-        all: true,
-      }),
       format.printf(
         ({
-          level,
+          level = LoggerLevel.INFO,
           message,
           context,
           timestamp,
         }: ILoggerMessage & {
+          /**
+           * Уровень лога.
+           */
           level?: string;
+          /**
+           * Время.
+           */
           timestamp?: string;
         }) => {
-          console.log(level);
+          const levelStyled = `[${colorize(level, level.toUpperCase())}]`;
+          const contextStyled = context
+            ? `[\u001B[36m${context}\u001B[0m]`
+            : '';
+          const timestampStyled = timestamp ? ` - ${timestamp} - ` : '';
+          const messageStyled = colorize(level, message);
 
-          return `${colorizer.colorize(
-            LoggerLevel.INFO,
-            timestamp as string,
-          )} [${level as string}][${context as string}]: ${message}`;
+          return `${levelStyled}${contextStyled}${timestampStyled}${messageStyled}`;
         },
       ),
     );

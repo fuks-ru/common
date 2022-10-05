@@ -64,10 +64,10 @@ export class LoggerMiddleware implements NestMiddleware {
 
     res.on('finish', () => {
       this.logger.log(
-        `Completed response from the server ${{
+        `Completed response from the server ${JSON.stringify({
           url: req.url,
           statusCode: res.statusCode,
-        }}`,
+        })}`,
       );
     });
 

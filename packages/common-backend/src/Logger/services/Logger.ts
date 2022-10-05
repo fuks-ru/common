@@ -99,27 +99,6 @@ export class Logger implements LoggerService {
     this.printMessages(messages, context, LoggerLevel.VERBOSE);
   }
 
-  private getContextAndStackAndMessagesToPrint(args: unknown[]) {
-    const { messages, context } = this.getContextAndMessagesToPrint(args);
-
-    if (messages.length <= 1) {
-      return { messages, context };
-    }
-
-    const lastElement = messages[messages.length - 1];
-    const isStack = isString(lastElement);
-
-    if (!isStack) {
-      return { messages, context };
-    }
-
-    return {
-      stack: lastElement,
-      messages: messages.slice(0, -1),
-      context,
-    };
-  }
-
   private printMessages(
     messages: unknown[],
     context = '',
@@ -151,7 +130,10 @@ export class Logger implements LoggerService {
       : (message as string);
   }
 
-  private getContextAndMessagesToPrint(args: unknown[]) {
+  private getContextAndMessagesToPrint(args: unknown[]): {
+    messages: unknown[];
+    context: string;
+  } {
     if (args.length <= 1) {
       return { messages: args, context: '' };
     }
