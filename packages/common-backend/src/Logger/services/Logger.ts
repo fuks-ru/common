@@ -27,11 +27,11 @@ interface ILoggerMessage {
   /**
    * Id запроса.
    */
-  requestId: string;
+  requestId?: string;
   /**
    * Id сессии.
    */
-  sessionId: string;
+  sessionId?: string;
   /**
    * Текст сообщения.
    */
@@ -82,13 +82,15 @@ export class Logger {
     message: string,
     options?: ILoggerOptions,
   ): void {
-    const context = requestContext.get<IRequestContext>(REQUEST_CONTEXT_ID);
+    const context = requestContext.get<IRequestContext | undefined>(
+      REQUEST_CONTEXT_ID,
+    );
 
     const loggerMessage: ILoggerMessage = {
       message,
       extra: options?.extra,
-      requestId: context[REQUEST_ID_KEY],
-      sessionId: context[REQUEST_SESSION_ID_KEY],
+      requestId: context?.[REQUEST_ID_KEY],
+      sessionId: context?.[REQUEST_SESSION_ID_KEY],
     };
 
     this.winstonLogger.log(level, JSON.stringify(loggerMessage));
