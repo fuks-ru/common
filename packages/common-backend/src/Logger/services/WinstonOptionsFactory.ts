@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import { WinstonModuleOptions } from 'nest-winston';
 import { format, transports } from 'winston';
 import { Injectable } from '@nestjs/common';
@@ -6,8 +7,9 @@ import Transport from 'winston-transport';
 
 import 'winston-daily-rotate-file';
 
-import { LoggerLevel } from 'common-backend/Logger/enums/LoggerLevel';
 import { ILoggerModuleOptions } from 'common-backend/Logger/types/ILoggerModuleOptions';
+import { ILoggerMessage } from 'common-backend/Logger/types/ILoggerMessage';
+import { LoggerLevel } from 'common-backend/Logger/enums/LoggerLevel';
 
 @Injectable()
 export class WinstonOptionsFactory {
@@ -38,8 +40,23 @@ export class WinstonOptionsFactory {
         format: this.timestampFormat,
       }),
       format.printf(
-        ({ level, message, timestamp }) =>
-          `${timestamp as string} [${level}]: ${message as string}`,
+        ({
+          level,
+          message,
+          timestamp,
+          context,
+          requestId,
+          sessionId,
+        }: ILoggerMessage & {
+          level?: string;
+          timestamp?: string;
+        }) =>
+          `${timestamp as string} [${level as string}][${
+            context as string
+          }]: ${message}, ${JSON.stringify({
+            requestId,
+            sessionId,
+          })}`,
       ),
     );
 

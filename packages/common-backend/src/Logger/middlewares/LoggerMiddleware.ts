@@ -1,4 +1,4 @@
-import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
+import { Inject, Injectable, Logger, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { v4 } from 'uuid';
 import requestContext from 'request-context';
@@ -9,7 +9,6 @@ import {
   REQUEST_ID_KEY,
   REQUEST_SESSION_ID_KEY,
 } from 'common-backend/Logger/utils/constants';
-import { Logger } from 'common-backend/Logger/services/Logger';
 import { ILoggerModuleOptions } from 'common-backend/Logger/types/ILoggerModuleOptions';
 
 interface ICookie {
@@ -22,8 +21,9 @@ interface IRequest extends Omit<Request, 'cookies'> {
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
+  private readonly logger = new Logger(LoggerMiddleware.name);
+
   public constructor(
-    private readonly logger: Logger,
     @Inject('LOGGER_MODULE_OPTIONS')
     private readonly options: ILoggerModuleOptions,
   ) {}
@@ -51,23 +51,19 @@ export class LoggerMiddleware implements NestMiddleware {
 
     const geo = lookup(req.ip);
 
-    this.logger.info('New incoming request', {
-      extra: {
-        url: req.url,
-        method: req.method,
-        query: req.query,
-        body: req.body as unknown,
-        ip: req.ip,
-        city: geo?.city,
-      },
+    this.logger.log('New incoming request', {
+      url: req.url,
+      method: req.method,
+      query: req.query,
+      body: req.body as unknown,
+      ip: req.ip,
+      city: geo?.city,
     });
 
     res.on('finish', () => {
-      this.logger.info('Completed response from the server', {
-        extra: {
-          url: req.url,
-          statusCode: res.statusCode,
-        },
+      this.logger.log('Completed response from the server', {
+        url: req.url,
+        statusCode: res.statusCode,
       });
     });
 
