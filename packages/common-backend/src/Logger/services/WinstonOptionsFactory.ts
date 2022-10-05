@@ -6,8 +6,9 @@ import Transport from 'winston-transport';
 
 import 'winston-daily-rotate-file';
 
-import { LoggerLevel } from 'common-backend/Logger/enums/LoggerLevel';
 import { ILoggerModuleOptions } from 'common-backend/Logger/types/ILoggerModuleOptions';
+import { ILoggerMessage } from 'common-backend/Logger/types/ILoggerMessage';
+import { LoggerLevel } from 'common-backend/Logger/enums/LoggerLevel';
 
 @Injectable()
 export class WinstonOptionsFactory {
@@ -33,32 +34,58 @@ export class WinstonOptionsFactory {
   public create(
     options: ILoggerModuleOptions | undefined,
   ): WinstonModuleOptions {
-    const myFormat = format.combine(
+    const { colorize } = format.colorize();
+
+    const consoleFormat = format.combine(
       format.timestamp({
         format: this.timestampFormat,
       }),
       format.printf(
-        ({ level, message, timestamp }) =>
-          `${timestamp as string} [${level}]: ${message as string}`,
+        ({
+          level = LoggerLevel.INFO,
+          message,
+          context,
+          timestamp,
+        }: ILoggerMessage & {
+          /**
+           * Уровень лога.
+           */
+          level?: string;
+          /**
+           * Время.
+           */
+          timestamp?: string;
+        }) => {
+          const levelStyled = `[${colorize(level, level.toUpperCase())}]`;
+          const contextStyled = context
+            ? `[\u001B[36m${context}\u001B[0m]`
+            : '';
+          const timestampStyled = timestamp ? ` - ${timestamp} - ` : '';
+          const messageStyled = colorize(level, message);
+
+          return `${levelStyled}${contextStyled}${timestampStyled}${messageStyled}`;
+        },
       ),
+    );
+
+    const fileFormat = format.combine(
+      format.timestamp({
+        format: this.timestampFormat,
+      }),
+      format.json(),
     );
 
     const resultTransports: Transport[] = [
       new transports.Console({
         silent: options?.isToConsoleDisable,
-        format: format.combine(
-          format.colorize({
-            all: true,
-          }),
-          myFormat,
-        ),
+        format: consoleFormat,
       }),
 
       new transports.DailyRotateFile({
         silent: options?.isToFileDisable,
         level: LoggerLevel.ERROR,
         filename: this.logErrorFilename,
-        format: myFormat,
+        format: fileFormat,
         maxFiles: this.maxFiles,
         datePattern: this.logDatePattern,
       }),
@@ -67,7 +94,7 @@ export class WinstonOptionsFactory {
         silent: options?.isToFileDisable,
         level: LoggerLevel.INFO,
         filename: this.logCombineFilename,
-        format: myFormat,
+        format: fileFormat,
         maxFiles: this.maxFiles,
         datePattern: this.logDatePattern,
       }),

@@ -4,6 +4,7 @@ import {
   HttpStatus,
   Inject,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
@@ -15,12 +16,13 @@ import {
 
 import { CookieResponseSetter } from 'common-backend/CookieSetter/services/CookieResponseSetter';
 import { RedirectError } from 'common-backend/Redirect/dto/RedirectError';
-import { Logger } from 'common-backend/Logger/services/Logger';
 import { SystemError } from 'common-backend/SystemError/dto/SystemError';
 import { IErrorFilterModuleOptions } from 'common-backend/ErrorFilter/types/IErrorFilterModuleOptions';
 
 @Injectable()
 export class ErrorFilter implements ExceptionFilter<Error> {
+  private readonly logger = new Logger(ErrorFilter.name);
+
   private readonly statusResolver: Record<CommonErrorCode, HttpStatus> = {
     [CommonErrorCode.ALREADY_AUTH]: HttpStatus.BAD_REQUEST,
     [CommonErrorCode.CONFIG_NOT_FOUND]: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -34,7 +36,6 @@ export class ErrorFilter implements ExceptionFilter<Error> {
   };
 
   public constructor(
-    private readonly logger: Logger,
     @Inject('ERROR_MODULE_OPTIONS')
     private readonly options: IErrorFilterModuleOptions,
     private readonly cookieResponseSetter: CookieResponseSetter,
@@ -51,12 +52,7 @@ export class ErrorFilter implements ExceptionFilter<Error> {
     this.cookieResponseSetter.set(response);
 
     if (!request.url.includes('_next')) {
-      this.logger.error('An error has occurred', {
-        extra: {
-          error: exception,
-          stack: exception.stack,
-        },
-      });
+      this.logger.error(exception.message, exception.stack);
     }
 
     const isApi = request.url.includes(this.options.apiPrefix);
