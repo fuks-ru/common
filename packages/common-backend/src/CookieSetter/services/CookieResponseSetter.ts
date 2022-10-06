@@ -1,16 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Response } from 'express';
 
 import { CookieSetterRef } from 'common-backend/CookieSetter/services/CookieSetterRef';
-import { ICookieSetterModuleOptions } from 'common-backend/CookieSetter/types/ICookieSetterModuleOptions';
 
 @Injectable()
 export class CookieResponseSetter {
-  public constructor(
-    private readonly cookieSetterRef: CookieSetterRef,
-    @Inject('COOKIE_SETTER_OPTIONS')
-    private readonly options: ICookieSetterModuleOptions,
-  ) {}
+  public constructor(private readonly cookieSetterRef: CookieSetterRef) {}
 
   /**
    * Устанавливает куку для ответа.
@@ -19,10 +14,7 @@ export class CookieResponseSetter {
     for (const [name, { value, options = {} }] of Object.entries(
       this.cookieSetterRef.getCookies(),
     )) {
-      response.cookie(name, value, {
-        domain: options.domain,
-        ...options,
-      });
+      response.cookie(name, value, options);
     }
 
     for (const name of this.cookieSetterRef.getClearCookies()) {

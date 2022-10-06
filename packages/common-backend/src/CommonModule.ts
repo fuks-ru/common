@@ -67,6 +67,7 @@ export class CommonModule {
     SystemErrorModule,
     ValidationModule,
     EnvModule,
+    CookieSetterModule,
   ];
 
   /**
@@ -87,9 +88,6 @@ export class CommonModule {
         }),
         LoggerModule.forRoot({
           ...options.logger,
-          domain: options.domain,
-        }),
-        CookieSetterModule.forRoot({
           domain: options.domain,
         }),
         ...CommonModule.commonModules,
@@ -139,17 +137,6 @@ export class CommonModule {
 
             return {
               ...result.logger,
-              domain: result.domain,
-            };
-          },
-        }),
-        CookieSetterModule.forRootAsync({
-          imports: options.imports,
-          inject: options.inject,
-          useFactory: async (...args: unknown[]) => {
-            const result = await options.useFactory(...args);
-
-            return {
               domain: result.domain,
             };
           },

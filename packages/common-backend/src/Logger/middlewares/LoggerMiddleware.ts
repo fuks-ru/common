@@ -41,7 +41,7 @@ export class LoggerMiddleware implements NestMiddleware {
     const sessionId = req.cookies?.sessionId || v4();
 
     res.cookie('sessionId', sessionId, {
-      domain: this.options.domain,
+      domain: `.${this.options.domain}`,
     });
 
     requestContext.set(
