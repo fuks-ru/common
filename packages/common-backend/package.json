@@ -1,8 +1,8 @@
 {
   "name": "@fuks-ru/common-backend",
+  "version": "0.4.4",
   "description": "Backend helpers",
   "packageManager": "yarn@3.2.0",
-  "version": "0.4.4",
   "repository": "https://github.com/fuks-ru/common",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
