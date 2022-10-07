@@ -21,7 +21,7 @@ export interface ILoggerModuleOptions {
   /**
    * Корневой домен для установки кук сессии.
    */
-  domain: string;
+  sessionCookieDomain: string;
 }
 /**
  * Описывает асинхронный конфиг модуля логирования.

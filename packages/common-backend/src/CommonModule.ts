@@ -39,11 +39,11 @@ export interface ICommonModuleOptions {
   /**
    * Настройки логгера.
    */
-  logger?: Omit<ILoggerModuleOptions, 'domain'>;
+  logger?: Omit<ILoggerModuleOptions, 'sessionCookieDomain'>;
   /**
    * Корневой домен для кук.
    */
-  domain: string;
+  sessionCookieDomain: string;
   /**
    * Префикс для api.
    */
@@ -88,7 +88,7 @@ export class CommonModule {
         }),
         LoggerModule.forRoot({
           ...options.logger,
-          domain: options.domain,
+          sessionCookieDomain: options.sessionCookieDomain,
         }),
         ...CommonModule.commonModules,
       ],
@@ -137,7 +137,7 @@ export class CommonModule {
 
             return {
               ...result.logger,
-              domain: result.domain,
+              sessionCookieDomain: result.sessionCookieDomain,
             };
           },
         }),
