@@ -17,8 +17,10 @@ export class CookieResponseSetter {
       response.cookie(name, value, options);
     }
 
-    for (const name of this.cookieSetterRef.getClearCookies()) {
-      response.clearCookie(name);
+    for (const [name, options] of Object.entries(
+      this.cookieSetterRef.getClearCookies(),
+    )) {
+      response.clearCookie(name, options);
     }
   }
 }

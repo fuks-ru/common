@@ -22,6 +22,8 @@ type ICookie = Record<
   }
 >;
 
+type ICookieToRemove = Record<string, CookieOptions | undefined>;
+
 /**
  * Контекст запроса.
  */
@@ -33,7 +35,7 @@ interface IRequestContext {
   /**
    * Объект с куками для очистки.
    */
-  [COOKIE_CLEAR]?: string[];
+  [COOKIE_CLEAR]?: ICookieToRemove;
 }
 
 @Injectable()
@@ -51,7 +53,7 @@ export class CookieSetterRef {
       ...prevCookiesAdd,
       [name]: { value, options },
     };
-    const newCookiesClear = prevCookiesClear.filter(
+    const newCookiesClear = Object.keys(prevCookiesClear).filter(
       (clearCookieName) => clearCookieName !== name,
     );
 
@@ -65,13 +67,16 @@ export class CookieSetterRef {
   /**
    * Добавляет куку в список для удаления.
    */
-  public clearCookie(name: string): void {
+  public clearCookie(name: string, options?: CookieOptions): void {
     const context = requestContext.get<IRequestContext>(REQUEST_CONTEXT_ID);
 
-    const prevCookiesClear = context[COOKIE_CLEAR] || [];
+    const prevCookiesClear = context[COOKIE_CLEAR] || {};
     const prevCookiesAdd = context[COOKIE] || {};
 
-    const newCookiesClear = [...prevCookiesClear, name];
+    const newCookiesClear: ICookieToRemove = {
+      ...prevCookiesClear,
+      [name]: options,
+    };
     const newCookiesAdd = Object.fromEntries(
       Object.entries(prevCookiesAdd).filter(
         ([addCookieName]) => addCookieName !== name,
@@ -97,9 +102,9 @@ export class CookieSetterRef {
   /**
    * Получить куки для удаления.
    */
-  public getClearCookies(): string[] {
+  public getClearCookies(): ICookieToRemove {
     const context = requestContext.get<IRequestContext>(REQUEST_CONTEXT_ID);
 
-    return context[COOKIE_CLEAR] || [];
+    return context[COOKIE_CLEAR] || {};
   }
 }
