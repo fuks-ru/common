@@ -1,4 +1,0 @@
-releases:
-  "@fuks-ru/common": minor
-  "@fuks-ru/common-backend": patch
-  "@fuks-ru/common-frontend": minor

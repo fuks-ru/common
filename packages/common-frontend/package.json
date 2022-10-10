@@ -2,7 +2,7 @@
   "name": "@fuks-ru/common-frontend",
   "description": "Frontend helpers",
   "packageManager": "yarn@3.2.0",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "repository": "https://github.com/fuks-ru/common",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -19,7 +19,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
-    "@fuks-ru/common": "workspace:0.0.9",
+    "@fuks-ru/common": "workspace:0.1.0",
     "@reduxjs/toolkit": "^1.8.6",
     "@types/axios": "^0.14.0",
     "@types/react": "^18.0.21",
