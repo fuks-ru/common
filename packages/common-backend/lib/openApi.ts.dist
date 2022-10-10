@@ -3,7 +3,12 @@ import OpenAPIClientAxios, {
   OperationResponse,
   Parameters,
 } from 'openapi-client-axios';
-import { errorInterceptor } from '@fuks-ru/common';
+import {
+  errorInterceptor,
+  TApiBody as TApiBodyBase,
+  TApiArgs as TApiArgsBase,
+  TApiResponse as TApiResponseBase,
+} from '@fuks-ru/common';
 
 import { Client, defaultBaseUrl, OperationMethods, Components } from './client';
 import schema from './swagger-schema.json';
@@ -38,29 +43,17 @@ export const getApi = async (baseURL = defaultBaseUrl): Promise<Client> => {
 /**
  * Описания типа возвращаемого с бэка значения.
  */
-export type TApiResponse<Method extends TMethods = TMethods> = ReturnType<
-  OperationMethods[Method]
-> extends OperationResponse<infer Response>
-  ? Response
-  : never;
+export type TApiResponse<Method extends TMethods = TMethods> = TApiResponseBase<OperationMethods, Method>;
 
 /**
  * Описания типа тела запроса.
  */
-export type TApiBody<Method extends TMethods = TMethods> =
-  OperationMethods[Method] extends (...args: infer Args) => unknown
-    ? Exclude<Args[1], undefined>
-    : never;
+export type TApiBody<Method extends TMethods = TMethods> = TApiBodyBase<OperationMethods, Method>;
 
 /**
  * Описания типа аргументов url'а запроса.
  */
-export declare type TApiArgs<Method extends TMethods = TMethods> =
-	OperationMethods[Method] extends (...args: infer Args) => unknown
-		? Exclude<Args[0], undefined | null> extends Parameters<infer Params>
-			? Params
-			: never
-		: never;
+export declare type TApiArgs<Method extends TMethods = TMethods> = TApiArgsBase<OperationMethods, Method>;
 
 /**
  * Описание схемы клиента.

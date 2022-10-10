@@ -8,3 +8,4 @@ export { ValidationError } from 'common/apiErrors/ValidationError';
 export { UnauthorizedError } from 'common/apiErrors/UnauthorizedError';
 export { AlreadyAuthError } from 'common/apiErrors/AlreadyAuthError';
 export { errorInterceptor } from 'common/apiErrors/errorInterceptor';
+export * from 'common/openApi';

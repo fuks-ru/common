@@ -36,7 +36,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "enableTopLevelFallback": true,\
     "ignorePatternData": "(^(?:\\\\.yarn\\\\/sdks(?:\\\\/(?!\\\\.{1,2}(?:\\\\/|$))(?:(?:(?!(?:^|\\\\/)\\\\.{1,2}(?:\\\\/|$)).)*?)|$))$)",\
     "fallbackExclusionList": [\
-      ["@fuks-ru/common", ["workspace:packages/common"]],\
+      ["@fuks-ru/common", ["virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#workspace:packages/common", "virtual:fa5efdf176e99bfc8a1e7e6bbc95eb8176ed965efd249293890878995ba6fdd047b8c334cca98beea971419913062adac3619e9d8216199ba2cd5245aa5d0ed9#workspace:packages/common", "workspace:packages/common"]],\
       ["@fuks-ru/common-backend", ["workspace:packages/common-backend"]],\
       ["@fuks-ru/common-frontend", ["workspace:packages/common-frontend"]],\
       ["common", ["workspace:."]]\
@@ -108,6 +108,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["regenerator-runtime", "npm:0.13.9"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:7.19.4", {\
+          "packageLocation": "./.yarn/cache/@babel-runtime-npm-7.19.4-9f106cb4dd-66b7e3c13e.zip/node_modules/@babel/runtime/",\
+          "packageDependencies": [\
+            ["@babel/runtime", "npm:7.19.4"],\
+            ["regenerator-runtime", "npm:0.13.9"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@babel/runtime-corejs3", [\
@@ -173,12 +181,50 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@fuks-ru/common", [\
+        ["virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#workspace:packages/common", {\
+          "packageLocation": "./.yarn/__virtual__/@fuks-ru-common-virtual-1f2d5ee275/1/packages/common/",\
+          "packageDependencies": [\
+            ["@fuks-ru/common", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#workspace:packages/common"],\
+            ["@types/axios", "npm:0.14.0"],\
+            ["@types/openapi-client-axios", null],\
+            ["axios", "npm:0.27.2"],\
+            ["openapi-client-axios", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:5.3.0"],\
+            ["tslib", "npm:2.4.0"],\
+            ["ttypescript", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:1.5.13"],\
+            ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"],\
+            ["typescript-transform-paths", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:3.3.1"]\
+          ],\
+          "packagePeers": [\
+            "@types/openapi-client-axios",\
+            "openapi-client-axios"\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:fa5efdf176e99bfc8a1e7e6bbc95eb8176ed965efd249293890878995ba6fdd047b8c334cca98beea971419913062adac3619e9d8216199ba2cd5245aa5d0ed9#workspace:packages/common", {\
+          "packageLocation": "./.yarn/__virtual__/@fuks-ru-common-virtual-5829d96073/1/packages/common/",\
+          "packageDependencies": [\
+            ["@fuks-ru/common", "virtual:fa5efdf176e99bfc8a1e7e6bbc95eb8176ed965efd249293890878995ba6fdd047b8c334cca98beea971419913062adac3619e9d8216199ba2cd5245aa5d0ed9#workspace:packages/common"],\
+            ["@types/axios", "npm:0.14.0"],\
+            ["@types/openapi-client-axios", null],\
+            ["axios", "npm:0.27.2"],\
+            ["openapi-client-axios", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:5.3.0"],\
+            ["tslib", "npm:2.4.0"],\
+            ["ttypescript", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:1.5.13"],\
+            ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"],\
+            ["typescript-transform-paths", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:3.3.1"]\
+          ],\
+          "packagePeers": [\
+            "@types/openapi-client-axios"\
+          ],\
+          "linkType": "SOFT"\
+        }],\
         ["workspace:packages/common", {\
           "packageLocation": "./packages/common/",\
           "packageDependencies": [\
             ["@fuks-ru/common", "workspace:packages/common"],\
             ["@types/axios", "npm:0.14.0"],\
             ["axios", "npm:0.27.2"],\
+            ["openapi-client-axios", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:5.3.0"],\
             ["tslib", "npm:2.4.0"],\
             ["ttypescript", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:1.5.13"],\
             ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"],\
@@ -192,7 +238,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/common-backend/",\
           "packageDependencies": [\
             ["@fuks-ru/common-backend", "workspace:packages/common-backend"],\
-            ["@fuks-ru/common", "workspace:packages/common"],\
+            ["@fuks-ru/common", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#workspace:packages/common"],\
             ["@nestjs/common", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:9.1.2"],\
             ["@nestjs/core", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:9.1.2"],\
             ["@nestjs/platform-express", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:9.1.2"],\
@@ -212,7 +258,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["geoip-lite", "npm:1.4.6"],\
             ["nest-winston", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:1.7.0"],\
             ["nestjs-i18n", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:9.2.0"],\
-            ["openapi-client-axios", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:5.3.0"],\
+            ["openapi-client-axios", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:5.3.0"],\
             ["reflect-metadata", "npm:0.1.13"],\
             ["request-context", "npm:2.0.0"],\
             ["rollup", "npm:2.79.1"],\
@@ -235,6 +281,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/common-frontend/",\
           "packageDependencies": [\
             ["@fuks-ru/common-frontend", "workspace:packages/common-frontend"],\
+            ["@fuks-ru/common", "virtual:fa5efdf176e99bfc8a1e7e6bbc95eb8176ed965efd249293890878995ba6fdd047b8c334cca98beea971419913062adac3619e9d8216199ba2cd5245aa5d0ed9#workspace:packages/common"],\
+            ["@reduxjs/toolkit", "virtual:fa5efdf176e99bfc8a1e7e6bbc95eb8176ed965efd249293890878995ba6fdd047b8c334cca98beea971419913062adac3619e9d8216199ba2cd5245aa5d0ed9#npm:1.8.6"],\
             ["@types/axios", "npm:0.14.0"],\
             ["@types/react", "npm:18.0.21"],\
             ["axios", "npm:0.27.2"],\
@@ -601,6 +649,36 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["picocolors", "npm:1.0.0"],\
             ["tiny-glob", "npm:0.2.9"],\
             ["tslib", "npm:2.4.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@reduxjs/toolkit", [\
+        ["npm:1.8.6", {\
+          "packageLocation": "./.yarn/cache/@reduxjs-toolkit-npm-1.8.6-2ed129b1e5-f2a5f20f63.zip/node_modules/@reduxjs/toolkit/",\
+          "packageDependencies": [\
+            ["@reduxjs/toolkit", "npm:1.8.6"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:fa5efdf176e99bfc8a1e7e6bbc95eb8176ed965efd249293890878995ba6fdd047b8c334cca98beea971419913062adac3619e9d8216199ba2cd5245aa5d0ed9#npm:1.8.6", {\
+          "packageLocation": "./.yarn/__virtual__/@reduxjs-toolkit-virtual-e18f223ca0/0/cache/@reduxjs-toolkit-npm-1.8.6-2ed129b1e5-f2a5f20f63.zip/node_modules/@reduxjs/toolkit/",\
+          "packageDependencies": [\
+            ["@reduxjs/toolkit", "virtual:fa5efdf176e99bfc8a1e7e6bbc95eb8176ed965efd249293890878995ba6fdd047b8c334cca98beea971419913062adac3619e9d8216199ba2cd5245aa5d0ed9#npm:1.8.6"],\
+            ["@types/react", "npm:18.0.21"],\
+            ["@types/react-redux", null],\
+            ["immer", "npm:9.0.15"],\
+            ["react", "npm:18.2.0"],\
+            ["react-redux", null],\
+            ["redux", "npm:4.2.0"],\
+            ["redux-thunk", "virtual:e18f223ca03fe3f8dc8ccb6aa4452e23ab6490b5c07178a2525c1d416b1b64e3d730bba3a80f7c01f6ebb95c59172f511ca7e702c55cfd3421d33bf9730f95c2#npm:2.4.1"],\
+            ["reselect", "npm:4.1.6"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-redux",\
+            "@types/react",\
+            "react-redux",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4171,6 +4249,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["immer", [\
+        ["npm:9.0.15", {\
+          "packageLocation": "./.yarn/cache/immer-npm-9.0.15-6c734225db-92e3d63e81.zip/node_modules/immer/",\
+          "packageDependencies": [\
+            ["immer", "npm:9.0.15"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["import-fresh", [\
         ["npm:3.3.0", {\
           "packageLocation": "./.yarn/cache/import-fresh-npm-3.3.0-3e34265ca9-2cacfad06e.zip/node_modules/import-fresh/",\
@@ -6035,10 +6122,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:5.3.0", {\
-          "packageLocation": "./.yarn/__virtual__/openapi-client-axios-virtual-1234141d0f/0/cache/openapi-client-axios-npm-5.3.0-c69ce8681f-decf322b3f.zip/node_modules/openapi-client-axios/",\
+        ["virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:5.3.0", {\
+          "packageLocation": "./.yarn/__virtual__/openapi-client-axios-virtual-4d53f280f6/0/cache/openapi-client-axios-npm-5.3.0-c69ce8681f-decf322b3f.zip/node_modules/openapi-client-axios/",\
           "packageDependencies": [\
-            ["openapi-client-axios", "virtual:0eebc6b4d42f8c6a8aa91d5c718e21ed31d4c13cc61f3e9e0801a7d6596b43b945a2e99a0ce97412317ba86a72ae31cfb7bcf94f2bd9768fc4e89c21cd3a6b0e#npm:5.3.0"],\
+            ["openapi-client-axios", "virtual:eb6be813161f32a86896fa6160451b4f0d6eea4be38e37aebd3959db51a253ad1749b544ddeda2b3d0b5cfc0f7563c11e5de3c629f9558155f26a880d103208a#npm:5.3.0"],\
             ["@apidevtools/json-schema-ref-parser", "npm:9.0.9"],\
             ["@types/axios", "npm:0.14.0"],\
             ["@types/js-yaml", null],\
@@ -6553,6 +6640,38 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["redux", [\
+        ["npm:4.2.0", {\
+          "packageLocation": "./.yarn/cache/redux-npm-4.2.0-4688cc8d65-75f3955c89.zip/node_modules/redux/",\
+          "packageDependencies": [\
+            ["redux", "npm:4.2.0"],\
+            ["@babel/runtime", "npm:7.19.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["redux-thunk", [\
+        ["npm:2.4.1", {\
+          "packageLocation": "./.yarn/cache/redux-thunk-npm-2.4.1-2ba08bf615-af5abb425f.zip/node_modules/redux-thunk/",\
+          "packageDependencies": [\
+            ["redux-thunk", "npm:2.4.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e18f223ca03fe3f8dc8ccb6aa4452e23ab6490b5c07178a2525c1d416b1b64e3d730bba3a80f7c01f6ebb95c59172f511ca7e702c55cfd3421d33bf9730f95c2#npm:2.4.1", {\
+          "packageLocation": "./.yarn/__virtual__/redux-thunk-virtual-f921f667b5/0/cache/redux-thunk-npm-2.4.1-2ba08bf615-af5abb425f.zip/node_modules/redux-thunk/",\
+          "packageDependencies": [\
+            ["redux-thunk", "virtual:e18f223ca03fe3f8dc8ccb6aa4452e23ab6490b5c07178a2525c1d416b1b64e3d730bba3a80f7c01f6ebb95c59172f511ca7e702c55cfd3421d33bf9730f95c2#npm:2.4.1"],\
+            ["@types/redux", null],\
+            ["redux", "npm:4.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/redux",\
+            "redux"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["reflect-metadata", [\
         ["npm:0.1.13", {\
           "packageLocation": "./.yarn/cache/reflect-metadata-npm-0.1.13-c525998e20-798d379a7b.zip/node_modules/reflect-metadata/",\
@@ -6650,6 +6769,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/requireindex-npm-1.1.0-445c011741-397057d97d.zip/node_modules/requireindex/",\
           "packageDependencies": [\
             ["requireindex", "npm:1.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["reselect", [\
+        ["npm:4.1.6", {\
+          "packageLocation": "./.yarn/cache/reselect-npm-4.1.6-869f318cc3-3ea1058422.zip/node_modules/reselect/",\
+          "packageDependencies": [\
+            ["reselect", "npm:4.1.6"]\
           ],\
           "linkType": "HARD"\
         }]\
