@@ -19,6 +19,7 @@ import { ValidationModule } from 'common-backend/Validation/ValidationModule';
 import { ILoggerModuleOptions } from 'common-backend/Logger/types/ILoggerModuleOptions';
 import { EnvModule } from 'common-backend/Env/EnvModule';
 import { II18nModuleOptions } from 'common-backend/I18n/types/II18nModuleOptions';
+import { ISwaggerModuleOptions } from 'common-backend/Swagger/types/ISwaggerModuleOptions';
 
 /**
  * Настройки основного модуля.
@@ -48,6 +49,10 @@ export interface ICommonModuleOptions {
    * Префикс для api.
    */
   apiPrefix: string;
+  /**
+   * Настройки swagger.
+   */
+  swagger?: ISwaggerModuleOptions;
 }
 
 interface ICommonModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'> {
@@ -63,7 +68,6 @@ export class CommonModule {
   private static readonly commonModules = [
     RedirectModule,
     RequestRefModule,
-    SwaggerModule,
     SystemErrorModule,
     ValidationModule,
     EnvModule,
@@ -90,6 +94,7 @@ export class CommonModule {
           ...options.logger,
           sessionCookieDomain: options.sessionCookieDomain,
         }),
+        SwaggerModule.forRoot(options.swagger || {}),
         ...CommonModule.commonModules,
       ],
     };
@@ -139,6 +144,15 @@ export class CommonModule {
               ...result.logger,
               sessionCookieDomain: result.sessionCookieDomain,
             };
+          },
+        }),
+        SwaggerModule.forRootAsync({
+          imports: options.imports,
+          inject: options.inject,
+          useFactory: async (...args: unknown[]) => {
+            const result = await options.useFactory(...args);
+
+            return result.swagger || {};
           },
         }),
         ...CommonModule.commonModules,

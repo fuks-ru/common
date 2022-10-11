@@ -7,24 +7,18 @@ import ttypescript from 'ttypescript';
 import json from '@rollup/plugin-json';
 import util from 'node:util';
 import { Injectable, Logger } from '@nestjs/common';
-import { OpenAPIObject } from '@nestjs/swagger';
 
 const exec = util.promisify(childProcess.exec);
 
 @Injectable()
-export class ContractGenerator {
-  private readonly logger = new Logger(ContractGenerator.name);
+export class AxiosContractGenerator {
+  private readonly logger = new Logger(AxiosContractGenerator.name);
 
   private readonly targetPackageRootPath = process.cwd();
 
   private readonly contractDirCachePath = path.join(
     this.targetPackageRootPath,
-    '/node_modules/.cache/generate-api-contract/lib',
-  );
-
-  private readonly swaggerSchemaCachePath = path.join(
-    this.contractDirCachePath,
-    '/swagger-schema.json',
+    '/node_modules/.cache/generate-api-contract/lib/axios',
   );
 
   private readonly clientTsCachePath = path.join(
@@ -32,9 +26,14 @@ export class ContractGenerator {
     '/client.ts',
   );
 
+  private readonly axiosSwaggerSchemaCachePath = path.join(
+    this.contractDirCachePath,
+    '/swagger-schema.json',
+  );
+
   private readonly libOutPath = path.join(
     this.targetPackageRootPath,
-    '/dist/lib',
+    '/dist/client/axios',
   );
 
   private readonly commonPackageRootPath = path.join(
@@ -55,10 +54,12 @@ export class ContractGenerator {
   /**
    * Генерация файлов контракта.
    */
-  public async generateContractLib(document: OpenAPIObject): Promise<void> {
+  public async generateContractLib(
+    swaggerSchemaCachePath: string,
+  ): Promise<void> {
     this.createCachePathIfNotExist();
 
-    this.generateSchemaJson(document);
+    fs.copyFileSync(swaggerSchemaCachePath, this.axiosSwaggerSchemaCachePath);
 
     await this.generateClientTs();
 
@@ -77,13 +78,9 @@ export class ContractGenerator {
     fs.mkdirSync(this.contractDirCachePath, { recursive: true });
   }
 
-  private generateSchemaJson(document: OpenAPIObject): void {
-    fs.writeFileSync(this.swaggerSchemaCachePath, JSON.stringify(document));
-  }
-
   private async generateClientTs(): Promise<void> {
     await exec(
-      `yarn typegen ${this.swaggerSchemaCachePath} > ${this.clientTsCachePath} && echo "const defaultBaseUrl = '/';\\nexport { defaultBaseUrl, Components, Paths };" >> ${this.clientTsCachePath}`,
+      `yarn typegen ${this.axiosSwaggerSchemaCachePath} > ${this.clientTsCachePath} && echo "const defaultBaseUrl = '/';\\nexport { defaultBaseUrl, Components, Paths };" >> ${this.clientTsCachePath}`,
     );
   }
 

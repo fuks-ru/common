@@ -15,3 +15,4 @@ export {
   CommonModule,
   ICommonModuleOptions,
 } from 'common-backend/CommonModule';
+export { ISwaggerModuleOptions } from 'common-backend/Swagger/types/ISwaggerModuleOptions';

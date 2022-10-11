@@ -24,7 +24,7 @@ export interface IErrorFilterModuleOptions {
 }
 
 /**
- * Описывает асинхронный модуля обработки ошибок.
+ * Описывает асинхронный конфиг модуля обработки ошибок.
  */
 export interface IErrorFilterModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {

@@ -1,11 +1,32 @@
-import { INestApplication, Injectable } from '@nestjs/common';
+import { INestApplication, Inject, Injectable } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import path from 'node:path';
+import fs from 'node:fs';
 
-import { ContractGenerator } from 'common-backend/Swagger/services/ContractGenerator';
+import { AxiosContractGenerator } from 'common-backend/Swagger/services/AxiosContractGenerator';
+import { DartContractGenerator } from 'common-backend/Swagger/services/DartContractGenerator';
+import { ISwaggerModuleOptions } from 'common-backend/Swagger/types/ISwaggerModuleOptions';
 
 @Injectable()
 export class SwaggerService {
-  public constructor(private readonly contractGenerator: ContractGenerator) {}
+  private readonly targetPackageRootPath = process.cwd();
+
+  private readonly contractDirCachePath = path.join(
+    this.targetPackageRootPath,
+    '/node_modules/.cache/generate-api-contract/lib',
+  );
+
+  private readonly swaggerSchemaCachePath = path.join(
+    this.contractDirCachePath,
+    '/swagger-schema.json',
+  );
+
+  public constructor(
+    private readonly axiosContractGenerator: AxiosContractGenerator,
+    private readonly dartContractGenerator: DartContractGenerator,
+    @Inject('SWAGGER_MODULE_OPTIONS')
+    private readonly swaggerOptions: ISwaggerModuleOptions,
+  ) {}
 
   /**
    * Создает документ для Swagger схемы.
@@ -24,17 +45,43 @@ export class SwaggerService {
    * Генерирует api-контракты в файл.
    */
   public async generateApiContract(document: OpenAPIObject): Promise<void> {
-    await this.contractGenerator.generateContractLib(document);
+    this.createCachePathIfNotExist();
+    this.generateSchemaJson(document);
+
+    await Promise.all([
+      this.swaggerOptions.generators?.includes('axios')
+        ? this.axiosContractGenerator.generateContractLib(
+            this.swaggerSchemaCachePath,
+          )
+        : Promise.resolve(),
+      this.swaggerOptions.generators?.includes('dart')
+        ? this.dartContractGenerator.generateContractLib(
+            this.swaggerSchemaCachePath,
+          )
+        : Promise.resolve(),
+    ]);
   }
 
   /**
    * Создает маршрут для просмотра swagger-схемы в браущере.
    */
   public setupRoute(
-    path: string,
+    pathName: string,
     app: INestApplication,
     document: OpenAPIObject,
   ): void {
-    SwaggerModule.setup(path, app, document);
+    SwaggerModule.setup(pathName, app, document);
+  }
+
+  private generateSchemaJson(document: OpenAPIObject): void {
+    fs.writeFileSync(this.swaggerSchemaCachePath, JSON.stringify(document));
+  }
+
+  private createCachePathIfNotExist(): void {
+    if (fs.existsSync(this.contractDirCachePath)) {
+      return;
+    }
+
+    fs.mkdirSync(this.contractDirCachePath, { recursive: true });
   }
 }
