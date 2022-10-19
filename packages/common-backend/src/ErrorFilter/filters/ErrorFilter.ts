@@ -45,7 +45,14 @@ export class ErrorFilter implements ExceptionFilter<Error> {
    * Обрабатывает все ошибки приложения.
    */
   public catch(exception: Error, host: ArgumentsHost): void {
+    const type = host.getType();
+
+    if (type !== 'http') {
+      throw exception;
+    }
+
     const ctx = host.switchToHttp();
+
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 

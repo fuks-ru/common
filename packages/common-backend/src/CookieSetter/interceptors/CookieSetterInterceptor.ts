@@ -24,11 +24,18 @@ export class CookieSetterInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<unknown> {
-    const response = context.switchToHttp().getResponse<Response>();
+    let response: Response | undefined;
+    const requestType = context.getType();
+
+    if (requestType === 'http') {
+      response = context.switchToHttp().getResponse<Response>();
+    }
 
     return next.handle().pipe(
       map((payload: unknown) => {
-        this.cookieResponseSetter.set(response);
+        if (response) {
+          this.cookieResponseSetter.set(response);
+        }
 
         return payload;
       }),
