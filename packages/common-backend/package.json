@@ -1,6 +1,6 @@
 {
   "name": "@fuks-ru/common-backend",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Backend helpers",
   "packageManager": "yarn@3.2.0",
   "repository": "https://github.com/fuks-ru/common",
