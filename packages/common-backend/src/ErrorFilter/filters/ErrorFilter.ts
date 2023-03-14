@@ -33,6 +33,7 @@ export class ErrorFilter implements ExceptionFilter<Error> {
     [CommonErrorCode.VALIDATION]: HttpStatus.UNPROCESSABLE_ENTITY,
     [CommonErrorCode.FORBIDDEN]: HttpStatus.FORBIDDEN,
     [CommonErrorCode.UNKNOWN]: HttpStatus.INTERNAL_SERVER_ERROR,
+    [CommonErrorCode.I18N_NOT_INIT]: HttpStatus.INTERNAL_SERVER_ERROR,
   };
 
   public constructor(

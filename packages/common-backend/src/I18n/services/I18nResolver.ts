@@ -1,28 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { ContextIdFactory, ModuleRef } from '@nestjs/core';
-import { I18nRequestScopeService } from 'nestjs-i18n';
+import { I18nContext } from 'nestjs-i18n';
+import { CommonErrorCode } from '@fuks-ru/common';
 
-import { RequestRefService } from 'common-backend/RequestRef/services/RequestRefService';
+import { SystemErrorFactory } from 'common-backend/SystemError/services/SystemErrorFactory';
 
 @Injectable()
 export class I18nResolver {
-  public constructor(
-    private readonly moduleRef: ModuleRef,
-    private readonly requestRef: RequestRefService,
-  ) {}
+  public constructor(private readonly systemErrorFactory: SystemErrorFactory) {}
 
   /**
    * Получает request-scoped инстанс i18n-сервиса.
    */
-  public resolve(): Promise<I18nRequestScopeService> {
-    const request = this.requestRef.getRequest();
+  public resolve(): I18nContext {
+    const i18n = I18nContext.current();
 
-    const contextId = ContextIdFactory.getByRequest(request);
+    if (!i18n) {
+      throw this.systemErrorFactory.create(
+        CommonErrorCode.CONFIG_NOT_FOUND,
+        'i18n not init',
+      );
+    }
 
-    this.moduleRef.registerRequestByContextId(request, contextId);
-
-    return this.moduleRef.resolve(I18nRequestScopeService, contextId, {
-      strict: false,
-    });
+    return i18n;
   }
 }

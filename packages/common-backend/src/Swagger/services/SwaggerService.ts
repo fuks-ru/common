@@ -3,7 +3,7 @@ import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import path from 'node:path';
 import fs from 'node:fs';
 
-import { AxiosContractGenerator } from 'common-backend/Swagger/services/AxiosContractGenerator';
+import { RtkContractGenerator } from 'common-backend/Swagger/services/RtkContractGenerator';
 import { DartContractGenerator } from 'common-backend/Swagger/services/DartContractGenerator';
 import { ISwaggerModuleOptions } from 'common-backend/Swagger/types/ISwaggerModuleOptions';
 
@@ -22,7 +22,7 @@ export class SwaggerService {
   );
 
   public constructor(
-    private readonly axiosContractGenerator: AxiosContractGenerator,
+    private readonly rtkContractGenerator: RtkContractGenerator,
     private readonly dartContractGenerator: DartContractGenerator,
     @Inject('SWAGGER_MODULE_OPTIONS')
     private readonly swaggerOptions: ISwaggerModuleOptions,
@@ -49,8 +49,8 @@ export class SwaggerService {
     this.generateSchemaJson(document);
 
     await Promise.all([
-      this.swaggerOptions.generators?.includes('axios')
-        ? this.axiosContractGenerator.generateContractLib(
+      this.swaggerOptions.generators?.includes('rtk')
+        ? this.rtkContractGenerator.generateContractLib(
             this.swaggerSchemaCachePath,
           )
         : Promise.resolve(),

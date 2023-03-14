@@ -1,7 +1,7 @@
 import { DynamicModule, Global, Module } from '@nestjs/common';
 
 import { SwaggerService } from 'common-backend/Swagger/services/SwaggerService';
-import { AxiosContractGenerator } from 'common-backend/Swagger/services/AxiosContractGenerator';
+import { RtkContractGenerator } from 'common-backend/Swagger/services/RtkContractGenerator';
 import {
   ISwaggerModuleAsyncOptions,
   ISwaggerModuleOptions,
@@ -20,7 +20,7 @@ export class SwaggerModule {
       global: true,
       providers: [
         SwaggerService,
-        AxiosContractGenerator,
+        RtkContractGenerator,
         DartContractGenerator,
         {
           provide: 'SWAGGER_MODULE_OPTIONS',
@@ -41,7 +41,7 @@ export class SwaggerModule {
       imports: options.imports,
       providers: [
         SwaggerService,
-        AxiosContractGenerator,
+        RtkContractGenerator,
         DartContractGenerator,
         {
           provide: 'SWAGGER_MODULE_OPTIONS',

@@ -17,10 +17,10 @@ export class ValidationErrorFactory {
   /**
    * Создает объект ошибок валидации из ошибок Nest'а.
    */
-  public async createFromNestValidationErrors(
+  public createFromNestValidationErrors(
     errors: NestValidationError[],
-  ): Promise<ValidationError> {
-    const i18n = await this.i18nResolver.resolve();
+  ): ValidationError {
+    const i18n = this.i18nResolver.resolve();
 
     const preparedErrors = Object.fromEntries(
       errors.map(({ property, constraints }) => [
@@ -29,9 +29,8 @@ export class ValidationErrorFactory {
       ]),
     ) as Record<string, string[]>;
 
-    const translatedErrors = await this.i18nErrorTranslator.translateErrors(
-      preparedErrors,
-    );
+    const translatedErrors =
+      this.i18nErrorTranslator.translateErrors(preparedErrors);
 
     return new ValidationError(translatedErrors, i18n.t('validationError'));
   }
@@ -39,10 +38,10 @@ export class ValidationErrorFactory {
   /**
    * Создает объект ошибки валидации.
    */
-  public async createFromData<Data extends Record<string, string[]>>(
+  public createFromData<Data extends Record<string, string[]>>(
     data: Data,
-  ): Promise<ValidationError<Data>> {
-    const i18n = await this.i18nResolver.resolve();
+  ): ValidationError<Data> {
+    const i18n = this.i18nResolver.resolve();
 
     return new ValidationError(data, i18n.t('validationError'));
   }

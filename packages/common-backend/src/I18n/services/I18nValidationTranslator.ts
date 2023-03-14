@@ -9,10 +9,10 @@ export class I18nValidationTranslator {
   /**
    * Переводит ошибки валидации.
    */
-  public async translateErrors(
+  public translateErrors(
     errors: Record<string, string[]>,
-  ): Promise<Record<string, string[]>> {
-    const i18n = await this.i18nResolver.resolve();
+  ): Record<string, string[]> {
+    const i18n = this.i18nResolver.resolve();
 
     return Object.fromEntries(
       Object.entries(errors).map(([key, value]) => {
@@ -24,12 +24,13 @@ export class I18nValidationTranslator {
           }
 
           const args = argsString
-            ? (JSON.parse(argsString) as Record<string, unknown>)
+            ? (JSON.parse(argsString) as Record<string, string>)
             : {};
 
-          return i18n.t<string>(translationKey, {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+          return i18n.t(translationKey, {
             args: { property: key, ...args },
-          });
+          }) as string;
         });
 
         return [key, currentError];
