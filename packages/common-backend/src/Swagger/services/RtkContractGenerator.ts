@@ -41,73 +41,22 @@ export class RtkContractGenerator {
       path.join(this.contractDirCachePath, 'emptyApi.ts'),
     );
 
-    const filterByTag =
-      (tag: string) => (_: string, operationDefinition: OperationDefinition) =>
-        operationDefinition.operation.tags?.includes(tag) || false;
-
-    const swaggerJson: OpenAPIV3.Document = JSON.parse(
-      await fsa.readFile(swaggerSchemaCachePath, 'utf8'),
-    );
-
-    const allTags = Object.values(swaggerJson.paths)
-      .filter((pathItem): pathItem is OpenAPIV3.PathItemObject => !!pathItem)
-      .flatMap((pathItem) =>
-        Object.values(pathItem)
-          .filter(
-            (operation): operation is OpenAPIV3.OperationObject =>
-              typeof operation === 'object' && 'responses' in operation,
-          )
-          .flatMap((operation) => operation.tags)
-          .filter((tag): tag is string => !!tag),
-      );
-
-    const uniqueTags = [...new Set(allTags)];
-
-    const configs = parseConfig({
+    const apiFileContent = await generateEndpoints({
       apiFile: './emptyApi.ts',
       apiImport: 'emptyApi',
       schemaFile: swaggerSchemaCachePath,
-      outputFiles: Object.fromEntries(
-        uniqueTags.map((tag) => [
-          tag,
-          {
-            filterEndpoints: filterByTag(tag),
-            exportName: `${tag.charAt(0).toLowerCase()}${tag.slice(1)}Api`,
-          },
-        ]),
-      ),
       hooks: true,
+      flattenArg: true,
     });
 
-    const apiFilesContent = await Promise.all(
-      configs.map(async ({ outputFile, ...config }) => {
-        const content = (await generateEndpoints(config)) as string;
-
-        return {
-          outputFile: config.exportName || 'api',
-          content,
-        };
-      }),
+    await fsa.writeFile(
+      path.join(this.contractDirCachePath, 'api.ts'),
+      apiFileContent as string,
     );
-
-    await Promise.all(
-      apiFilesContent.map(async ({ outputFile, content }) => {
-        await fsa.writeFile(
-          path.join(this.contractDirCachePath, `${outputFile}.ts`),
-          content,
-        );
-      }),
-    );
-
-    const indexFileContent = apiFilesContent
-      .map(
-        ({ outputFile }) => `export * as ${outputFile} from "./${outputFile}"`,
-      )
-      .join(';\n');
 
     await fsa.writeFile(
       path.join(this.contractDirCachePath, 'index.ts'),
-      `${indexFileContent};\nexport * from "./emptyApi";`,
+      'export * from "./api";\nexport * from "./emptyApi";',
     );
 
     await exec(

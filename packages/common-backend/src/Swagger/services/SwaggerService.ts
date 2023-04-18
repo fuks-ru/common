@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import { RtkContractGenerator } from 'common-backend/Swagger/services/RtkContractGenerator';
 import { DartContractGenerator } from 'common-backend/Swagger/services/DartContractGenerator';
 import { ISwaggerModuleOptions } from 'common-backend/Swagger/types/ISwaggerModuleOptions';
+import fsa from 'node:fs/promises';
 
 @Injectable()
 export class SwaggerService {
@@ -60,6 +61,8 @@ export class SwaggerService {
           )
         : Promise.resolve(),
     ]);
+
+    await fsa.rm(this.contractDirCachePath, { recursive: true });
   }
 
   /**

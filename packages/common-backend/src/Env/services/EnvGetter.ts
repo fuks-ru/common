@@ -1,6 +1,5 @@
-import { CommonErrorCode } from '@fuks-ru/common';
-
 import { SystemErrorFactory } from 'common-backend/SystemError/services/SystemErrorFactory';
+import { CommonErrorCode } from 'common-backend/SystemError/enums/CommonErrorCode';
 
 export class EnvGetter {
   public constructor(private readonly systemErrorFactory: SystemErrorFactory) {}

@@ -8,16 +8,15 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import {
-  CommonErrorCode,
-  IErrorResponse,
-  IRedirectData,
-} from '@fuks-ru/common';
+import { IErrorResponse } from '@fuks-ru/common';
 
 import { CookieResponseSetter } from 'common-backend/CookieSetter/services/CookieResponseSetter';
 import { RedirectError } from 'common-backend/Redirect/dto/RedirectError';
 import { SystemError } from 'common-backend/SystemError/dto/SystemError';
 import { IErrorFilterModuleOptions } from 'common-backend/ErrorFilter/types/IErrorFilterModuleOptions';
+import { CommonErrorCode } from 'common-backend/SystemError/enums/CommonErrorCode';
+import { ValidationError } from 'common-backend/Validation/dto/ValidationError';
+import { I18nResolver } from 'common-backend/I18n/services/I18nResolver';
 
 @Injectable()
 export class ErrorFilter implements ExceptionFilter<Error> {
@@ -27,10 +26,7 @@ export class ErrorFilter implements ExceptionFilter<Error> {
     [CommonErrorCode.ALREADY_AUTH]: HttpStatus.BAD_REQUEST,
     [CommonErrorCode.CONFIG_NOT_FOUND]: HttpStatus.INTERNAL_SERVER_ERROR,
     [CommonErrorCode.REDIRECT]: HttpStatus.INTERNAL_SERVER_ERROR,
-    [CommonErrorCode.REMOTE_HOST_ERROR]: HttpStatus.INTERNAL_SERVER_ERROR,
-    [CommonErrorCode.NOT_FOUND_ROUTE]: HttpStatus.NOT_FOUND,
     [CommonErrorCode.UNAUTHORIZED]: HttpStatus.UNAUTHORIZED,
-    [CommonErrorCode.VALIDATION]: HttpStatus.UNPROCESSABLE_ENTITY,
     [CommonErrorCode.FORBIDDEN]: HttpStatus.FORBIDDEN,
     [CommonErrorCode.UNKNOWN]: HttpStatus.INTERNAL_SERVER_ERROR,
     [CommonErrorCode.I18N_NOT_INIT]: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -40,6 +36,7 @@ export class ErrorFilter implements ExceptionFilter<Error> {
     @Inject('ERROR_MODULE_OPTIONS')
     private readonly options: IErrorFilterModuleOptions,
     private readonly cookieResponseSetter: CookieResponseSetter,
+    private readonly i18nResolver: I18nResolver,
   ) {}
 
   /**
@@ -96,43 +93,73 @@ export class ErrorFilter implements ExceptionFilter<Error> {
   } {
     if (exception instanceof SystemError) {
       return {
-        errorResponse: this.formatResponse(
-          exception.code,
-          exception.message,
-          exception.data,
-        ),
+        errorResponse: this.getSystemErrorResponse(exception),
         status: this.resolveStatus(exception.code),
+      };
+    }
+
+    if (exception instanceof ValidationError) {
+      return {
+        errorResponse: {
+          type: 'validation',
+          data: exception.data,
+        },
+        status: HttpStatus.UNPROCESSABLE_ENTITY,
       };
     }
 
     if (exception instanceof NotFoundException) {
       return {
-        errorResponse: this.formatResponse(
-          CommonErrorCode.NOT_FOUND_ROUTE,
-          exception.message,
-        ),
-        status: this.resolveStatus(CommonErrorCode.NOT_FOUND_ROUTE),
+        errorResponse: {
+          type: 'not-found',
+        },
+        status: HttpStatus.NOT_FOUND,
       };
     }
 
     if (exception instanceof RedirectError) {
       return {
-        errorResponse: this.formatResponse(
-          CommonErrorCode.REDIRECT,
-          exception.message,
-          undefined,
-          exception.data,
-        ),
-        status: this.resolveStatus(CommonErrorCode.REDIRECT),
+        errorResponse: {
+          type: 'redirect',
+          data: exception.data,
+        },
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+      };
+    }
+
+    const i18n = this.i18nResolver.resolve();
+
+    return {
+      errorResponse: {
+        type: 'system',
+        message: i18n.t('unknownError'),
+      },
+      status: HttpStatus.INTERNAL_SERVER_ERROR,
+    };
+  }
+
+  public getSystemErrorResponse(exception: SystemError): IErrorResponse {
+    if (exception.code === CommonErrorCode.FORBIDDEN) {
+      return {
+        type: 'forbidden',
+      };
+    }
+
+    if (exception.code === CommonErrorCode.UNAUTHORIZED) {
+      return {
+        type: 'unauthorized',
+      };
+    }
+
+    if (exception.code === CommonErrorCode.ALREADY_AUTH) {
+      return {
+        type: 'already-auth',
       };
     }
 
     return {
-      errorResponse: this.formatResponse(
-        CommonErrorCode.UNKNOWN,
-        exception.message,
-      ),
-      status: this.resolveStatus(CommonErrorCode.UNKNOWN),
+      type: 'system',
+      message: exception.message,
     };
   }
 
@@ -143,19 +170,5 @@ export class ErrorFilter implements ExceptionFilter<Error> {
     };
 
     return mergedResolver[code] || HttpStatus.INTERNAL_SERVER_ERROR;
-  }
-
-  private formatResponse<Data>(
-    code: number | string,
-    message: string,
-    data?: Data,
-    redirect?: IRedirectData,
-  ): IErrorResponse<Data> {
-    return {
-      code,
-      message,
-      data,
-      redirect,
-    };
   }
 }

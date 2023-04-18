@@ -1,26 +1,44 @@
-import { IRedirectData } from 'common/errorResponse/IRedirectData';
+import { IRedirectData } from './IRedirectData';
+
+export interface IValidationError {
+  type: 'validation';
+  data: Record<string, string[]>;
+}
+
+export interface ISystemError {
+  type: 'system';
+  message: string;
+}
+
+export interface IRedirectError {
+  type: 'redirect';
+  data: IRedirectData;
+}
+
+export interface IForbiddenError {
+  type: 'forbidden';
+}
+
+export interface IUnauthorizedError {
+  type: 'unauthorized';
+}
+
+export interface IAlreadyAuthError {
+  type: 'already-auth';
+}
+
+export interface INotFoundError {
+  type: 'not-found';
+}
 
 /**
  * HTTP ответ при ошибке.
  */
-export interface IErrorResponse<Data = unknown> {
-  /**
-   * Код ошибки.
-   */
-  code: number | string;
-
-  /**
-   * Сообщение об ошибке.
-   */
-  message: string;
-
-  /**
-   * Описывает данные для редиректа.
-   */
-  redirect?: IRedirectData;
-
-  /**
-   * Дополнительные данные (например, ошибки валидации).
-   */
-  data?: Data;
-}
+export type IErrorResponse =
+  | IValidationError
+  | ISystemError
+  | IRedirectError
+  | IForbiddenError
+  | IUnauthorizedError
+  | IAlreadyAuthError
+  | INotFoundError;

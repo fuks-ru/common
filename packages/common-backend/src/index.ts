@@ -3,6 +3,7 @@ export { SwaggerService } from 'common-backend/Swagger/services/SwaggerService';
 export { CookieSetterService } from 'common-backend/CookieSetter/services/CookieSetterService';
 export { SystemErrorFactory } from 'common-backend/SystemError/services/SystemErrorFactory';
 export { SystemError } from 'common-backend/SystemError/dto/SystemError';
+export { CommonErrorCode } from 'common-backend/SystemError/enums/CommonErrorCode';
 export { EncodingModule } from 'common-backend/Encoding/EncodingModule';
 export { EncodingService } from 'common-backend/Encoding/services/EncodingService';
 export { EnvGetter } from 'common-backend/Env/services/EnvGetter';
