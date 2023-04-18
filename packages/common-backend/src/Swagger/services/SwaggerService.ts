@@ -13,7 +13,7 @@ export class SwaggerService {
 
   private readonly contractDirCachePath = path.join(
     this.targetPackageRootPath,
-    '/node_modules/.cache/generate-api-contract/lib',
+    '/node_modules/.cache/generate-api-contract',
   );
 
   private readonly swaggerSchemaCachePath = path.join(

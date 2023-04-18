@@ -175,8 +175,8 @@ __metadata:
   resolution: "@fuks-ru/common-backend@workspace:packages/common-backend"
   dependencies:
     "@fuks-ru/common": "workspace:0.1.0"
-    "@nestjs/common": ^9.3.9
-    "@nestjs/core": ^9.3.9
+    "@nestjs/common": ^9.1.2
+    "@nestjs/core": ^9.1.2
     "@nestjs/platform-express": ^9.3.9
     "@nestjs/swagger": ^6.2.1
     "@rtk-query/codegen-openapi": ^1.0.0
@@ -199,7 +199,7 @@ __metadata:
     rxjs: ^7.8.0
     tslib: ^2.5.0
     ttypescript: ^1.5.15
-    typescript: 4.9.5
+    typescript: 4.7.4
     typescript-transform-paths: ^3.4.6
     uuid: ^9.0.0
     winston: ^3.8.2
@@ -207,8 +207,8 @@ __metadata:
     winston-transport: ^4.5.0
   peerDependencies:
     "@fuks-ru/common": "*"
-    "@nestjs/common": ^8.4.4
-    "@nestjs/core": ^8.4.4
+    "@nestjs/common": ^9.1.2
+    "@nestjs/core": ^9.1.2
     "@nestjs/platform-express": ^8.4.4
     "@nestjs/swagger": ^5.2.1
     class-transformer: ^0.5.1
@@ -323,13 +323,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/common@npm:^9.3.9":
-  version: 9.3.9
-  resolution: "@nestjs/common@npm:9.3.9"
+"@nestjs/common@npm:^9.1.2":
+  version: 9.4.0
+  resolution: "@nestjs/common@npm:9.4.0"
   dependencies:
     iterare: 1.2.1
     tslib: 2.5.0
-    uid: 2.0.1
+    uid: 2.0.2
   peerDependencies:
     cache-manager: <=5
     class-transformer: "*"
@@ -343,20 +343,20 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: 48fde36befe8f8d4527ec4e9b3ab5a0929c6fb5f5e47fa3312dc2789d523503bf20a92eceb2ad88e506614a2574af60b5c4ea6211956264ac16bc0eb737de5e5
+  checksum: 751fc94111301da047e42f845415b806a393ca4ecadbe6cfcec9cf6bd230bb8be3a159faf574beb1ff98b2a436a432a726ff3dfccff21685f6ce5cb99ed8bb98
   languageName: node
   linkType: hard
 
-"@nestjs/core@npm:^9.3.9":
-  version: 9.3.9
-  resolution: "@nestjs/core@npm:9.3.9"
+"@nestjs/core@npm:^9.1.2":
+  version: 9.4.0
+  resolution: "@nestjs/core@npm:9.4.0"
   dependencies:
     "@nuxtjs/opencollective": 0.3.2
     fast-safe-stringify: 2.1.1
     iterare: 1.2.1
     path-to-regexp: 3.2.0
     tslib: 2.5.0
-    uid: 2.0.1
+    uid: 2.0.2
   peerDependencies:
     "@nestjs/common": ^9.0.0
     "@nestjs/microservices": ^9.0.0
@@ -371,7 +371,7 @@ __metadata:
       optional: true
     "@nestjs/websockets":
       optional: true
-  checksum: b2a29c8b61b8b7bbc8d883d4ff9aed80504e28c11bd627fccbeb11a7920559b8d885efecee4799c3bd9c2cd0224dd519c7b2dcdfa9f523855529143596e1837a
+  checksum: a0d5ca077a25cdd21a720aead6121ff27070cc608dd323a4459c10c21d36dc59ab471d1198f8b3e20f1eeeec35d0fde4e589601ccc82236d8a99c8fcb3ea9b15
   languageName: node
   linkType: hard
 
@@ -7025,6 +7025,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:4.7.4":
+  version: 4.7.4
+  resolution: "typescript@npm:4.7.4"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 5750181b1cd7e6482c4195825547e70f944114fb47e58e4aa7553e62f11b3f3173766aef9c281783edfd881f7b8299cf35e3ca8caebe73d8464528c907a164df
+  languageName: node
+  linkType: hard
+
 "typescript@npm:4.9.5, typescript@npm:^4.1.2":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
@@ -7042,6 +7052,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 506f4c919dc8aeaafa92068c997f1d213b9df4d9756d0fae1a1e7ab66b585ab3498050e236113a1c9e57ee08c21ec6814ca7a7f61378c058d79af50a4b1f5a5e
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@4.7.4#~builtin<compat/typescript>":
+  version: 4.7.4
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=65a307"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 9096d8f6c16cb80ef3bf96fcbbd055bf1c4a43bd14f3b7be45a9fbe7ada46ec977f604d5feed3263b4f2aa7d4c7477ce5f9cd87de0d6feedec69a983f3a4f93e
   languageName: node
   linkType: hard
 
@@ -7065,12 +7085,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uid@npm:2.0.1":
-  version: 2.0.1
-  resolution: "uid@npm:2.0.1"
+"uid@npm:2.0.2":
+  version: 2.0.2
+  resolution: "uid@npm:2.0.2"
   dependencies:
     "@lukeed/csprng": ^1.0.0
-  checksum: 0a3c697d8dd1f3b647afa35c411b11fd8fa2fb6dbd8a49fe109a4aa5214068c2c58781aa6e4516dfd16f0fc524fb7bba0833e9c1dc1ed3f1965b520349be9ad5
+  checksum: 98aabddcd6fe46f9b331b0378a93ee9cc51474348ada02006df9d10b4abc783ed596748ed9f20d7f6c5ff395dbcd1e764a65a68db6f39a31c95ae85ef13fe979
   languageName: node
   linkType: hard
 
