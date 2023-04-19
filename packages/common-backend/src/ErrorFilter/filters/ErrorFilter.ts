@@ -102,7 +102,7 @@ export class ErrorFilter implements ExceptionFilter<Error> {
       return {
         errorResponse: {
           type: 'validation',
-          data: exception.data,
+          data: exception.data as ValidationError['data'],
         },
         status: HttpStatus.UNPROCESSABLE_ENTITY,
       };
@@ -138,7 +138,7 @@ export class ErrorFilter implements ExceptionFilter<Error> {
     };
   }
 
-  public getSystemErrorResponse(exception: SystemError): IErrorResponse {
+  private getSystemErrorResponse(exception: SystemError): IErrorResponse {
     if (exception.code === CommonErrorCode.FORBIDDEN) {
       return {
         type: 'forbidden',

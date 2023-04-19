@@ -1,0 +1,84 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { BaseQueryApi, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { IErrorResponse, IRedirectData } from '@fuks-ru/common';
+import { MaybePromise } from '@reduxjs/toolkit/dist/query/tsHelpers';
+
+interface IConfig {
+  baseUrl: string,
+  prepareHeaders?: (headers: Headers, api: Pick<BaseQueryApi, 'getState' | 'extra' | 'endpoint' | 'type' | 'forced'>) => MaybePromise<Headers | void>;
+  onRedirect?: (location: IRedirectData) => void;
+  onForbidden?: () => void;
+  onUnauthorized?: () => void;
+  onAlreadyAuth?: () => void;
+}
+
+
+const defaultConfig: IConfig = {
+  baseUrl: '/',
+}
+
+const isErrorResponse = (error: FetchBaseQueryError): error is { status: number, data: IErrorResponse } =>
+  typeof error.status === 'number'
+  && typeof error.data === 'object'
+  && error.data !== null
+  && 'type' in error.data
+  && typeof (error.data as { type: unknown }).type === 'string'
+
+const customBaseQuery = (): BaseQueryFn<string | FetchArgs,
+  unknown,
+  IErrorResponse> => {
+  return async (args, api, extraOptions) => {
+    const baseQuery = fetchBaseQuery({
+      baseUrl: defaultConfig.baseUrl,
+      prepareHeaders: defaultConfig.prepareHeaders,
+      credentials: "include"
+    });
+
+    const { data, error } = await baseQuery(args, api, extraOptions);
+
+    if (data) {
+      return { data }
+    }
+
+    if (!error) {
+      return { data };
+    }
+
+    if (!isErrorResponse(error)) {
+      return { error: { type: 'system', message: 'Unknown error' } }
+    }
+
+    if (error.data.type === 'redirect' && defaultConfig.onRedirect) {
+      defaultConfig.onRedirect(error.data.data)
+    }
+
+    if (error.data.type === 'already-auth' && defaultConfig.onAlreadyAuth) {
+      defaultConfig.onAlreadyAuth()
+    }
+
+    if (error.data.type === 'unauthorized' && defaultConfig.onUnauthorized) {
+      defaultConfig.onUnauthorized()
+    }
+
+    if (error.data.type === 'unauthorized' && defaultConfig.onForbidden) {
+      defaultConfig.onForbidden()
+    }
+
+    return { error: error.data as IErrorResponse }
+  }
+}
+
+export let emptyApi = createApi({
+  reducerPath: '#apiName#',
+  baseQuery: customBaseQuery(),
+  endpoints: () => ({}),
+})
+
+export const initApi = (config: Partial<IConfig>) => {
+  defaultConfig.baseUrl = config.baseUrl ?? defaultConfig.baseUrl;
+  defaultConfig.prepareHeaders = config.prepareHeaders ?? defaultConfig.prepareHeaders;
+  defaultConfig.onForbidden = config.onForbidden;
+  defaultConfig.onUnauthorized = config.onUnauthorized;
+  defaultConfig.onRedirect = config.onRedirect;
+  defaultConfig.onAlreadyAuth = config.onAlreadyAuth;
+}

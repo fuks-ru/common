@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  MutationTrigger,
   UseMutation,
   UseMutationStateOptions,
   UseMutationStateResult,
@@ -10,6 +10,7 @@ import { MutationResultSelectorResult } from '@reduxjs/toolkit/dist/query/core/b
 import { Form, FormInstance } from 'antd';
 import { QueryArgFrom } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
 import { useEffect, useRef } from 'react';
+import { MutationActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
 
 export const useFormMutation = <
   Result,
@@ -19,12 +20,20 @@ export const useFormMutation = <
     any,
     Result
   >,
-  R extends MutationResultSelectorResult<D>,
+  BodyKey extends keyof QueryArgFrom<D>,
+  R extends MutationResultSelectorResult<D> = MutationResultSelectorResult<D>,
 >(
   hook: UseMutation<D>,
-  options?: UseMutationStateOptions<D, R>,
+  options?: UseMutationStateOptions<D, R> & {
+    bodyKey: BodyKey;
+  },
 ): readonly [
-  MutationTrigger<D>,
+  (
+    body: BodyKey extends keyof QueryArgFrom<D>
+      ? QueryArgFrom<D>[BodyKey]
+      : QueryArgFrom<D>,
+    additionalData?: Omit<QueryArgFrom<D>, BodyKey>,
+  ) => MutationActionCreatorResult<D>,
   UseMutationStateResult<D, R> & {
     form: FormInstance<QueryArgFrom<D>>;
   },
@@ -32,7 +41,7 @@ export const useFormMutation = <
   const [trigger, data] = hook(options);
   const [form] = Form.useForm<QueryArgFrom<D>>();
   const { error } = data;
-  const lastBody = useRef<QueryArgFrom<D> | null>(null);
+  const lastBody = useRef<Record<string, unknown> | null>(null);
 
   useEffect(() => {
     if (!error) {
@@ -53,10 +62,17 @@ export const useFormMutation = <
     }
   }, [error, form]);
 
-  const onFinish: MutationTrigger<D> = (arg) => {
-    lastBody.current = arg;
+  const onFinish = (
+    arg: BodyKey extends keyof QueryArgFrom<D>
+      ? QueryArgFrom<D>[BodyKey]
+      : QueryArgFrom<D>,
+    additionalData?: Omit<QueryArgFrom<D>, BodyKey>,
+  ): MutationActionCreatorResult<D> => {
+    const body = options?.bodyKey ? { [options.bodyKey]: arg } : arg;
 
-    return trigger(arg);
+    lastBody.current = body;
+
+    return trigger({ ...body, ...additionalData } as QueryArgFrom<D>);
   };
 
   return [
@@ -66,3 +82,5 @@ export const useFormMutation = <
     },
   ];
 };
+
+/* eslint-enable */

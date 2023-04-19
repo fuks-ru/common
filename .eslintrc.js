@@ -18,6 +18,9 @@ module.exports = {
       },
     },
   },
+  rules: {
+    'jsdoc/require-jsdoc': ['off'],
+  },
   overrides: [
     {
       files: ['*.json'],

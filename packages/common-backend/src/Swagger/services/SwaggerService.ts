@@ -2,11 +2,11 @@ import { INestApplication, Inject, Injectable } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import path from 'node:path';
 import fs from 'node:fs';
+import fsa from 'node:fs/promises';
 
 import { RtkContractGenerator } from 'common-backend/Swagger/services/RtkContractGenerator';
 import { DartContractGenerator } from 'common-backend/Swagger/services/DartContractGenerator';
 import { ISwaggerModuleOptions } from 'common-backend/Swagger/types/ISwaggerModuleOptions';
-import fsa from 'node:fs/promises';
 
 @Injectable()
 export class SwaggerService {
@@ -53,6 +53,7 @@ export class SwaggerService {
       this.swaggerOptions.generators?.includes('rtk')
         ? this.rtkContractGenerator.generateContractLib(
             this.swaggerSchemaCachePath,
+            this.swaggerOptions.apiName,
           )
         : Promise.resolve(),
       this.swaggerOptions.generators?.includes('dart')

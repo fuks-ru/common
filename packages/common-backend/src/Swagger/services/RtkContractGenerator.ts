@@ -2,9 +2,7 @@ import childProcess from 'node:child_process';
 import path from 'node:path';
 import util from 'node:util';
 import { Injectable, Logger } from '@nestjs/common';
-import { parseConfig, generateEndpoints } from '@rtk-query/codegen-openapi';
-import { OperationDefinition } from '@rtk-query/codegen-openapi/lib/types';
-import { OpenAPIV3 } from 'openapi-types';
+import { generateEndpoints } from '@rtk-query/codegen-openapi';
 import fsa from 'node:fs/promises';
 import fs from 'node:fs';
 
@@ -20,7 +18,7 @@ export class RtkContractGenerator {
     path.join(
       // eslint-disable-next-line unicorn/prefer-module
       require.resolve('@fuks-ru/common-backend'),
-      '../emptyApi.ts',
+      '../emptyApi.ts.dist',
     ),
   );
 
@@ -34,11 +32,14 @@ export class RtkContractGenerator {
    */
   public async generateContractLib(
     swaggerSchemaCachePath: string,
+    apiName?: string,
   ): Promise<void> {
     await this.createCachePathIfNotExist();
-    await fsa.copyFile(
-      this.emptyApiPath,
+    const emptyApiFile = await fsa.readFile(this.emptyApiPath, 'utf8');
+
+    await fsa.writeFile(
       path.join(this.contractDirCachePath, 'emptyApi.ts'),
+      emptyApiFile.replace('#apiName#', apiName || 'queryApi'),
     );
 
     const apiFileContent = await generateEndpoints({

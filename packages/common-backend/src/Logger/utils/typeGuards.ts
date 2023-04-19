@@ -47,4 +47,4 @@ export const isNil = (val: unknown): val is null | undefined =>
  * Является ли undefined.
  */
 export const isUndefined = (obj: unknown): obj is undefined =>
-  typeof obj === 'undefined';
+  obj === undefined;

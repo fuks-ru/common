@@ -12,6 +12,7 @@ export interface ISwaggerModuleOptions {
    * Генераторы для openApi.
    */
   generators?: Array<'rtk' | 'dart'>;
+  apiName?: string;
 }
 
 /**

@@ -1,4 +1,4 @@
-import { IRedirectData } from './IRedirectData';
+import { IRedirectData } from 'common/errorResponse/IRedirectData';
 
 export interface IValidationError {
   type: 'validation';
