@@ -19,6 +19,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.6.0",
     "@rtk-query/codegen-openapi": "^1.0.0",
     "argon2": "^0.30.3",
     "geoip-lite": "^1.4.7",

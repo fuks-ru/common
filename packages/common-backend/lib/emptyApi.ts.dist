@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { BaseQueryApi, BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { IErrorResponse, IRedirectData } from '@fuks-ru/common';
+import { IErrorResponse, IRedirectData, isErrorResponse } from '@fuks-ru/common';
 import { MaybePromise } from '@reduxjs/toolkit/dist/query/tsHelpers';
 
 interface IConfig {
@@ -17,12 +17,9 @@ const defaultConfig: IConfig = {
   baseUrl: '/',
 }
 
-const isErrorResponse = (error: FetchBaseQueryError): error is { status: number, data: IErrorResponse } =>
-  typeof error.status === 'number'
-  && typeof error.data === 'object'
-  && error.data !== null
-  && 'type' in error.data
-  && typeof (error.data as { type: unknown }).type === 'string'
+const isFetchErrorResponse = (error: FetchBaseQueryError): error is { status: number, data: IErrorResponse } =>
+  typeof error.status === 'number' &&
+  isErrorResponse(error.data);
 
 const customBaseQuery = (): BaseQueryFn<string | FetchArgs,
   unknown,
@@ -44,7 +41,7 @@ const customBaseQuery = (): BaseQueryFn<string | FetchArgs,
       return { data };
     }
 
-    if (!isErrorResponse(error)) {
+    if (!isFetchErrorResponse(error)) {
       return { error: { type: 'system', message: 'Unknown error' } }
     }
 
@@ -60,7 +57,7 @@ const customBaseQuery = (): BaseQueryFn<string | FetchArgs,
       defaultConfig.onUnauthorized()
     }
 
-    if (error.data.type === 'unauthorized' && defaultConfig.onForbidden) {
+    if (error.data.type === 'forbidden' && defaultConfig.onForbidden) {
       defaultConfig.onForbidden()
     }
 

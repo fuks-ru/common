@@ -60,10 +60,6 @@ export class RtkContractGenerator {
       'export * from "./api";\nexport * from "./emptyApi";',
     );
 
-    await exec(
-      'yarn tsc node_modules/.cache/generate-api-contract/rtk/*.ts --noEmitOnError false --noEmit false --skipLibCheck --declaration --outDir dist/client/rtk',
-    );
-
     this.logger.log('Contracts build completed');
   }
 

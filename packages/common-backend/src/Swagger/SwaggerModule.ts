@@ -7,6 +7,7 @@ import {
   ISwaggerModuleOptions,
 } from 'common-backend/Swagger/types/ISwaggerModuleOptions';
 import { DartContractGenerator } from 'common-backend/Swagger/services/DartContractGenerator';
+import { NestContractGenerator } from 'common-backend/Swagger/services/NestContractGenerator';
 
 @Global()
 @Module({})
@@ -22,6 +23,7 @@ export class SwaggerModule {
         SwaggerService,
         RtkContractGenerator,
         DartContractGenerator,
+        NestContractGenerator,
         {
           provide: 'SWAGGER_MODULE_OPTIONS',
           useValue: options,
@@ -43,6 +45,7 @@ export class SwaggerModule {
         SwaggerService,
         RtkContractGenerator,
         DartContractGenerator,
+        NestContractGenerator,
         {
           provide: 'SWAGGER_MODULE_OPTIONS',
           inject: options.inject,

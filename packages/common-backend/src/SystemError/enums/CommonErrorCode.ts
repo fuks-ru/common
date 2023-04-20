@@ -9,4 +9,5 @@ export enum CommonErrorCode {
   REDIRECT = 'redirect',
   ALREADY_AUTH = 'already-auth',
   I18N_NOT_INIT = 'i18n-not-init',
+  REMOTE_HOST_ERROR = 'remote-host-error',
 }

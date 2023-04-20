@@ -58,8 +58,15 @@ export class DartContractGenerator {
   private async generateDartPackage(
     swaggerSchemaCachePath: string,
   ): Promise<void> {
+    const openApiCliPath = path.join(
+      path.dirname(
+        require.resolve('@openapitools/openapi-generator-cli/package.json'),
+      ),
+      'main.js',
+    );
+
     await exec(
-      `openapi-generator-cli generate -o ${this.outputPath} -i ${swaggerSchemaCachePath} -g dart-dio -c ${this.configPath}`,
+      `yarn node ${openApiCliPath} generate -o ${this.outputPath} -i ${swaggerSchemaCachePath} -g dart-dio -c ${this.configPath}`,
     );
     fs.copyFileSync(this.licenseDistPath, this.licenseOutputPath);
     fs.copyFileSync(this.changelogDistPath, this.changelogOutPath);

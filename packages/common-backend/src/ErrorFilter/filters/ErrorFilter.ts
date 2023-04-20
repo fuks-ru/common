@@ -30,6 +30,7 @@ export class ErrorFilter implements ExceptionFilter<Error> {
     [CommonErrorCode.FORBIDDEN]: HttpStatus.FORBIDDEN,
     [CommonErrorCode.UNKNOWN]: HttpStatus.INTERNAL_SERVER_ERROR,
     [CommonErrorCode.I18N_NOT_INIT]: HttpStatus.INTERNAL_SERVER_ERROR,
+    [CommonErrorCode.REMOTE_HOST_ERROR]: HttpStatus.INTERNAL_SERVER_ERROR,
   };
 
   public constructor(

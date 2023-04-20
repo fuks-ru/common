@@ -42,3 +42,12 @@ export type IErrorResponse =
   | IUnauthorizedError
   | IAlreadyAuthError
   | INotFoundError;
+
+export const isErrorResponse = (error: unknown): error is IErrorResponse =>
+  typeof error === 'object' &&
+  error !== null &&
+  'data' in error &&
+  typeof error.data === 'object' &&
+  error.data !== null &&
+  'type' in error.data &&
+  typeof (error.data as { type: unknown }).type === 'string';
